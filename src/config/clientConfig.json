@@ -14,29 +14,7 @@
   
           {"name":"meebits","label":"Meebits","imgurl":"/images/meebits.jpg"},
          
-          {"name":"wrappedcryptopunks","label":"Wrapped Cryptopunks","imgurl":"/images/cryptopunks.gif"},
-          {"name":"wrappedmooncats","label":"Wrapped Mooncats","imgurl":"/images/mooncats.jpg"},
-          {"name":"cryptovoxelsparcels","label":"Cryptovoxels Parcels","imgurl":"/images/cryptovoxels.jpg"},
-          {"name":"decentralandparcels","label":"Decentraland Parcels","imgurl":"/images/decentraland.jpg"},
-          {"name":"ethmenavatars","label":"Eth-Men Avatars","imgurl":"/images/ethmen.jpg"},
-          {"name":"autoglyphs","label":"Autoglyphs","imgurl":"/images/autoglyphs.jpg"},
-          {"name":"0xbitcoinmemes","label":"0xBitcoin Memes","imgurl":"/images/0xbitcoinmemes.gif"},
-          {"name":"bganpunksv1","label":"BGanPunksV1","imgurl":"/images/bganpunksV1.gif"},
-          {"name":"bganpunksv2","label":"BGanPunksV2","imgurl":"/images/bganpunksV2.gif"},
-          {"name":"hashmasks","label":"Hashmasks","imgurl":"/images/hashmasks.jpg"},
-          {"name":"punkbodies","label":"PunkBodies","imgurl":"/images/punkbodies.jpg"},
-          {"name":"ethercards","label":"Ethercards","imgurl":"/images/ethercards.jpg"},
-          {"name":"eulerbeats","label":"Eulerbeats","imgurl":"/images/eulerbeats.jpg"},
-
-          {"name":"framergence","label":"Framergence","imgurl":"/images/framergence.jpg"},
-
-          {"name":"chromiesquiggles","label":"Chromie Squiggles","imgurl":"/images/chromiesquiggles.jpg"},
-          {"name":"ignition","label":"Ignition","imgurl":"/images/ignition.jpg"},
-          {"name":"ringers","label":"Ringers","imgurl":"/images/ringers.jpg"},
-          {"name":"nimbuds","label":"Nimbuds","imgurl":"/images/nimbuds.jpg"},
-          {"name":"archetype","label":"Archetype","imgurl":"/images/archetype.jpg"}
-      
-         
+          
       
       ]
       
@@ -53,14 +31,9 @@
       "currencyTokens": [{"name":"weth","label":"wEth"},
           {"name":"0xbitcoin","label":"0xBTC"}], 
         "nftTypes": [
-          {"name":"artsale","label":"Artsale","imgurl":"/images/artblocks.jpg"},
-          {"name":"cryptovoxelsparcels","label":"Cryptovoxels Parcels","imgurl":"/images/cryptovoxels.jpg"},
-          {"name":"wrappedmooncats","label":"Mooncats","imgurl":"/images/mooncats.jpg"},
-          {"name":"wrappedcryptopunks","label":"Cryptopunks","imgurl":"/images/cryptopunks.gif"},
-          {"name":"testsquiggles","label":"TestSquiggles","imgurl":"/images/chromiesquiggles.jpg"},
-          {"name":"testignition","label":"TestIgnition","imgurl":"/images/ignition.jpg"}
-        
-        
+          
+          {"name":"meebits","label":"Meebits","imgurl":"/images/meebits.jpg"},
+       
         ]
       
       
