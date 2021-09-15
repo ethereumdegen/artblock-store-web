@@ -22,6 +22,41 @@
               <NotConnectedToWeb3 />
           </div>
 
+
+           <div class="w-column"  v-if=" connectedToWeb3">
+          <div class="text-lg font-bold"> Your NFTs  </div>
+          
+         
+
+          <div  class=" "  >
+
+             
+            
+
+            <div  >
+
+              <NftTile
+                v-for="item in allOwnedNFTs"
+                v-bind:key="item.nftContractAddress.concat('_').concat(item.nftTokenId)"
+              
+                v-bind:nftContractAddress="item.nftContractAddress"
+                v-bind:nftTokenId="item.nftTokenId"
+
+                v-bind:clickedTileCallback="clickedTileCallback"
+               />
+
+           </div>
+
+
+          </div>
+
+
+          
+       </div>
+
+
+
+
        <div class="w-column"  v-if=" connectedToWeb3">
           <div class="text-lg font-bold"> Your Active Bids  </div>
           
@@ -103,15 +138,16 @@ import Footer from './components/Footer.vue';
 import TabsBar from './components/TabsBar.vue';
 import GenericTable from './components/GenericTable.vue';
 
-import BidPacketHelper from '../js/bidpacket-helper.js'
+//import BidPacketHelper from '../js/bidpacket-helper.js'
+ 
+//import BuyTheFloorHelper from '../js/buythefloor-helper.js'
 
-
-import BuyTheFloorHelper from '../js/buythefloor-helper.js'
+import NftTile from './components/NftTile.vue'
 
 export default {
-  name: 'Dashboard',
+  name: 'Account',
   props: [],
-  components: {Navbar, Footer, TabsBar, GenericTable, NotConnectedToWeb3},
+  components: {Navbar, Footer, TabsBar, GenericTable,NftTile, NotConnectedToWeb3},
   data() {
     return {
       web3Plug: new Web3Plug() ,
@@ -120,6 +156,7 @@ export default {
       activeBidRowsArray:[],
       inactiveBidRowsArray:[],
 
+      allOwnedNFTs:[{nftContractAddress:'0x388f486dbcbe05029ba7adf784459b580b427032',nftTokenId:0}],
        
       connectedToWeb3: false,
       currentBlockNumber: 0
