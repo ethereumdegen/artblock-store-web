@@ -4,13 +4,13 @@ Version 0.10
 */
 import EIP712Helper from "./EIP712Helper.js" 
 import web3utils from 'web3-utils'
-
-import ethUtil from 'ethereumjs-util'
+ 
 import ethSigUtil from 'eth-sig-util'
-  
+import {bufferToHex, toBuffer, fromRpcSig, ecrecover, pubToAddress} from 'ethereumjs-util'
 
 //"BidPacket(address bidderAddress,address nftContractAddress,address currencyTokenAddress,uint256 currencyTokenAmount,uint256 expires)"
   
+ 
 
 
 export default class EIP712Utils {
@@ -39,7 +39,7 @@ export default class EIP712Utils {
    /// getBidPacketHash(bidderAddress,nftContractAddress,currencyTokenAddress,currencyTokenAmount,expires)
       static getTypedDataHash(typedData)
       {
-        var typedDatahash = ethUtil.keccak256(
+        var typedDatahash = web3utils.soliditySha3(
           Buffer.concat([
               Buffer.from('1901', 'hex'),
               EIP712Helper.structHash('EIP712Domain', typedData.domain, typedData.types),
@@ -70,15 +70,15 @@ export default class EIP712Utils {
       console.log('signature',signature)
 
        var sigHash = EIP712Utils.getTypedDataHash( typedData, typedData.types);
-       var msgBuf = ethUtil.toBuffer(signature)
-       const res = ethUtil.fromRpcSig(msgBuf);
+       var msgBuf = toBuffer(signature)
+       const res = fromRpcSig(msgBuf);
 
 
-       var hashBuf = ethUtil.toBuffer(sigHash)
+       var hashBuf = toBuffer(sigHash)
 
-       const pubKey  = ethUtil.ecrecover(hashBuf, res.v, res.r, res.s);
-       const addrBuf = ethUtil.pubToAddress(pubKey);
-       const recoveredSignatureSigner    = ethUtil.bufferToHex(addrBuf);
+       const pubKey  = ecrecover(hashBuf, res.v, res.r, res.s);
+       const addrBuf = pubToAddress(pubKey);
+       const recoveredSignatureSigner    = bufferToHex(addrBuf);
 
        var message = typedData.message
 
@@ -209,7 +209,7 @@ export default class EIP712Utils {
 
 
 
-      static async performOffchainSignForBidPacket(chainId, contractAddress,customConfig, dataValues, web3, from){
+      static async performOffchainSignForPacket(chainId, contractAddress,customConfig, dataValues, web3, from){
 
           
  
@@ -224,6 +224,8 @@ export default class EIP712Utils {
  
         var stringifiedData = JSON.stringify(  typedData );
 
+        console.log('meep',stringifiedData)
+
         
         let typedDatahash = EIP712Utils.getTypedDataHash(typedData)
 
@@ -233,6 +235,12 @@ export default class EIP712Utils {
         
         
         console.log( 'signResult', signResult )  
+
+
+        let recoveredSigner = EIP712Utils.recoverPacketSigner(typedData, signResult.signature)
+        console.log('recoveredSigner', recoveredSigner )
+   
+
 
         return signResult
 

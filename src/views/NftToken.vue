@@ -70,7 +70,15 @@
          <div class="w-column w-1/2 m-4 p-4">
 
           <div class="py-2" v-if="interactionMode=='makeSellOrder'">
-            Make Sell Order 
+
+            <SellOrderForm 
+            v-bind:web3Plug="web3Plug"
+            v-bind:nftContractAddress="nftContractAddress"
+            v-bind:nftTokenId="nftTokenId"
+            
+            />
+
+           
              
 
           </div>
@@ -102,6 +110,7 @@ import Navbar from './components/Navbar.vue';
  
 import Footer from './components/Footer.vue';
 
+import SellOrderForm from './components/SellOrderForm.vue';
 
 import StarflaskAPIHelper from '../js/starflask-api-helper'
 
@@ -109,14 +118,15 @@ import StarflaskAPIHelper from '../js/starflask-api-helper'
 export default {
   name: 'Home',
   props: [],
-  components: {Navbar, Footer},
+  components: {Navbar, Footer,SellOrderForm},
   data() {
     return {
       web3Plug: new Web3Plug() ,
       nftContractAddress: null,
       nftTokenId: null,
       tokenOwnerAddress: null,
-      interactionMode: null
+      interactionMode: null 
+
     }
   },
   mounted: function () {
@@ -175,9 +185,13 @@ export default {
       },
 
       ownedByLocalUser(){
+        if(!this.tokenOwnerAddress || !this.activeAccountAddress ) return false 
+
+
         return this.tokenOwnerAddress.toLowerCase() == this.activeAccountAddress.toLowerCase()
       },
 
+      
 
        async fetchTokenData(){
 

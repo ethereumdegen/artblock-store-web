@@ -330,6 +330,8 @@ export default class Web3Plug {
   formattedAmountToRaw(amountFormatted,decimals)
   { 
     console.log(new BigNumber( 10 ))
+
+    if(isNaN(amountFormatted)) amountFormatted = 0
      
 
     var multiplier = new BigNumber( 10 ).exponentiatedBy( decimals ) ;
