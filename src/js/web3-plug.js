@@ -71,8 +71,9 @@ var web3Instance = null
  
   let networkIds = {
     'mainnet':1,
+    'rinkeby':4,
     'goerli':5,
-    'kovan':42,
+    'kovan':42, 
     'matic':137,
   }
 

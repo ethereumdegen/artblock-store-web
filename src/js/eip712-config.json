@@ -1,0 +1,14 @@
+{   "contractName":"BlockStore",
+    "version":"1",
+    "primaryType":"OffchainOrder",
+    "entries":{
+        "orderCreator":"address",
+        "isSellOrder":"bool",
+        "nftContractAddress":"address",
+        "nftTokenId":"uint256",
+        "currencyTokenAddress":"address",
+        "currencyTokenAmount":"uint256",
+        "expires":"uint256"
+     }
+}
+ 

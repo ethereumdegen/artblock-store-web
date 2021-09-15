@@ -174,7 +174,7 @@ import NFTHelper from '../../js/nft-helper.js'
 
 
 
-var BTFContractABI = require('../../contracts/BuyTheFloorABI_2.json')
+var StoreContractABI = require('../../contracts/BlockStoreABI.json')
 
  
 

@@ -12,7 +12,7 @@
         "nftTypes": [
 
   
-          {"name":"meebits","label":"Meebits","imgurl":"/images/meebits.jpg"},
+          {"name":"meebits","label":"Meebits","imgurl":"/images/meebits.jpg"} 
          
           
       
@@ -32,7 +32,7 @@
           {"name":"0xbitcoin","label":"0xBTC"}], 
         "nftTypes": [
           
-          {"name":"meebits","label":"Meebits","imgurl":"/images/meebits.jpg"},
+          {"name":"meebits","label":"Meebits","imgurl":"/images/meebits.jpg"} 
        
         ]
       

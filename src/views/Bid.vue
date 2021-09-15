@@ -152,8 +152,9 @@ import BidPacketUtils from '../js/bidpacket-utils.js'
 
 import BuyTheFloorHelper from '../js/buythefloor-helper.js'
 
-var BTFContractABI = require('../contracts/BuyTheFloorABI_2.json')
+var StoreContractABI = require('../contracts/BlockStoreABI.json')
 
+ 
 
 export default {
   name: 'Bid',

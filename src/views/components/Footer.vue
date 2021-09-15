@@ -4,13 +4,19 @@
       <div class="w-row">
         <div class="column-5 w-col w-col-4 w-col-small-4">
           <h3 class="heading-3 footer">Documentation</h3>
+ 
+
+          <a href="https://github.com/admazzola/artblock-store-web" target="_blank" class="footer-link">Open Source Code</a>
+
+          <a href="https://etherscan.io/address/" target="_blank" class="footer-link">Smart Contract</a>
+
+          <a href="https://docs.onsecondary.com" target="_blank" class="footer-link">Official Docs</a>
 
 
-          <a href="https://docs.buythefloor.com" target="_blank" class="footer-link">BTF Docs</a>
           </div>
         <div class="column-6 w-col w-col-4 w-col-small-4">
           <h3 class="heading-3 footer">Community &amp; Social</h3>
-            <a href="https://discord.gg/mUPRJbpMsG" target="_blank" class="footer-link">BTF Discord</a>
+            <a href="https://discord.gg/mUPRJbpMsG" target="_blank" class="footer-link">OnSecondary Discord</a>
 
         <div class="column-7 w-col w-col-4 w-col-small-4 flex flex-col h-full">
 

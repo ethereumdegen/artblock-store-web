@@ -106,7 +106,7 @@ body {
 
 .section.ctas {
   background-color: #393b4a;
-  background-image: url('../assets/images/old_moon_4X.jpg');
+  
   background-position: 0px 0px;
   background-size: 400px;
   background-attachment: scroll;
@@ -122,7 +122,7 @@ body {
 .intro-list {
   padding: 1em;
   background-color: #393b4a;
-  background-image: url('../assets/images/old_moon_2X.jpg');
+   
   background-position: 0px 0px;
   background-size: 400px;
   box-shadow: 7px 7px 0 -1px #e6e6e6;

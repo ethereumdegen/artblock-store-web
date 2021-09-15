@@ -1,41 +1,31 @@
-# BUY THE FLOOR 
+# ON SECONDARY 
  
-Web frontend for Demand Based NFT Exchange
+Web frontend for NFT Exchange
  
 
-
-IMPROVE LATER: 
-- build subgraphs for wrapped mooncats and wrapped punks that give orig ids and wrap ids  !!! Per owner .
-
-
-- Use wolfpack to store event data about BTF burn events 
-- Use Starflask API to show sellers a page of all of their NFTs (so they dont have to pick by type )
-
+ 
 
 ### TODO
- -FOR VERSION 2
- Need to deploy the version 2 contract on mainnet  [DONE]
- need to setup alchemy 
- need to sync data from alchemy 
- 
 
+
+    -click on your address in upper right corner should take you to your profile 
+
+
+    - front page should have tiles for each project (artblocks to start) 
+
+    - need a custom json config for tiles 
+
+    --add the search back later 
+    
+
+  
  -set up proxy in nginx , port 3000 for api (api.buythefloor.com) using HTTPs certs 
 
 
 -run server with pm2 
  
 
- 
-
-3) build subgraphs to be able to show users items on website 
-
-4) make it easier to wrap things - wrapping on the site 
- 
- 5) make a page that simply shows a user all of the NFTS (api input is their address output is their NFTs!)
-
- -API 
-  
-
+   
 
 
 ### Development commands

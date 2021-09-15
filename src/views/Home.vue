@@ -14,8 +14,58 @@
    </div>
 
   
+   <div class="section  bg-white border-b-2 border-black   ">
+     <div class=" w-container">
+       <div class="w-row">
 
-   <div class="section  bg-white border-b-2 border-black">
+       </div>
+       <div class="w-row">
+
+         
+
+
+         <div class="column w-col w-col-6 mt-8 py-8">
+
+            <div class="">
+              
+               <router-link to="/collection/artblocks-curated" class='text-gray-800 text-xl block'> Artblocks Curated </router-link>
+  
+            </div>
+
+            <div class="">
+              
+               <router-link to="/collection/artblocks-factory" class='text-gray-800 text-xl block'> Artblocks Factory </router-link>
+  
+            </div>
+
+            <div class="">
+              
+               <router-link to="/collection/artblocks-playground" class='text-gray-800 text-xl block'> Artblocks Playground </router-link>
+  
+            </div>
+
+               
+           
+           <br> 
+      
+
+
+         </div>
+         <div class="column-2 w-col w-col-6  ">
+           
+              <FrontPageMedia />
+
+             
+
+
+
+         </div>
+       </div>
+     </div>
+   </div>
+
+
+   <div class="section  bg-white border-b-2 border-black hidden ">
      <div class=" w-container">
        <div class="w-row">
 
@@ -57,7 +107,7 @@
    </div>
 
 
-  <div class="section  bg-white border-b-2 border-black ">
+  <div class="section  bg-white border-b-2 border-black hidden ">
      <div class="w-container pt-8">
 
         <div class="column w-col w-col-6 mb-8 py-8">
@@ -85,7 +135,7 @@
       </div>
     </div>
 
-    <div class="section  bg-white border-b-2 border-black ">
+    <div class="section  bg-white border-b-2 border-black hidden ">
      <div class="w-container pt-8">
 
          

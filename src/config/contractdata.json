@@ -8,7 +8,7 @@
       "blockstore":{"address":" "}, 
        
 
-      "artblocks":{"name":"ArtBlox","address":" "} 
+      "artblocks":{"name":"ArtBlocks","address":" "} 
  
    
     }
@@ -24,7 +24,7 @@
       "blockstore":{"address":"0x08cf6d4af1ca2cf978e42e706877f1c2d905b1d0"}, 
        
 
-      "artblocks":{"name":"ArtBlox","address":"0x388f486dbcbe05029ba7adf784459b580b427032"} 
+      "artblocks":{"name":"ArtBlocks","address":"0x388f486dbcbe05029ba7adf784459b580b427032"} 
  
     }
 
