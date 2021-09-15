@@ -126,7 +126,7 @@
 
 <script>
 
-
+import web3 from 'web3'
 
 import NotConnectedToWeb3 from './components/NotConnectedToWeb3.vue'
 
@@ -230,7 +230,7 @@ export default {
 
           async fetchOwnedTokens(){
             
-            let results = await StarflaskAPIHelper.resolveStarflaskQuery( 'https://rinkeby.starflask.com/api/v1/apikey', {"requestType": "ERC721_balance_by_owner", "input":{"publicAddress":"0x99a848F6d8bb6D6Cd1A524B3C99a97e41e1E4b5A"}  }   )
+            let results = await StarflaskAPIHelper.resolveStarflaskQuery( 'https://rinkeby.starflask.com/api/v1/apikey', {"requestType": "ERC721_balance_by_owner", "input":{"publicAddress": this.activeAccountAddress }  }   )
 
             console.log('results',results )
 
