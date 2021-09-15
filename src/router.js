@@ -52,13 +52,13 @@ export default new Router({
     },
 
     {
-      path: '/collection/:address',
+      path: '/collection/:contractAddress',
       name: 'collection',
       component: Collection
     },
 
     {
-      path: '/collection/:address/:nftTokenId',
+      path: '/collection/:contractAddress/:tokenId',
       name: 'nftToken',
       component: NftToken
     },

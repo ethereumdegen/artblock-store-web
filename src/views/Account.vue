@@ -23,8 +23,31 @@
           </div>
 
 
+  <div class="w-column text-center mb-8"  v-if=" connectedToWeb3">
+           <div class="text-md font-bold "> User Profile  </div>
+
+          <div class="text-md  "> {{ this.activeAccountAddress }}  </div>
+           
+          <div  class=" "  >
+ 
+
+            <div  >
+
+            
+
+           </div>
+
+
+          </div>
+
+
+          
+       </div>
+
+
+
            <div class="w-column"  v-if=" connectedToWeb3">
-          <div class="text-lg font-bold"> Your NFTs  </div>
+          <div class="text-lg font-bold"> Owned NFTs  </div>
           
          
 
@@ -57,7 +80,7 @@
 
 
 
-       <div class="w-column"  v-if=" connectedToWeb3">
+       <div class="w-column hidden "  v-if=" connectedToWeb3">
           <div class="text-lg font-bold"> Your Active Bids  </div>
           
          
@@ -84,29 +107,7 @@
           
        </div>
 
-          <div class="w-column mt-24"  v-if=" connectedToWeb3" >
-          <div class="text-lg font-bold"> Your Inactive Bids  </div>
-           
-
-          <div  class=" "  >
- 
-
-            <div v-if="selectedTab=='bids'" class="mb-4 ">
-
-              <GenericTable
-                v-bind:labelsArray="['nftType','currencyType','bidAmount','expires']"
-                v-bind:rowsArray="inactiveBidRowsArray"
-                
-               />
-
-           </div>
-
-
-          </div>
-
-
-          
-       </div>
+        
 
 
      </div>
@@ -158,7 +159,7 @@ export default {
       activeBidRowsArray:[],
       inactiveBidRowsArray:[],
 
-      allOwnedNFTs:[{nftContractAddress:'0x388f486dbcbe05029ba7adf784459b580b427032',nftTokenId:0}],
+      allOwnedNFTs:[ ],
        
       connectedToWeb3: false,
       currentBlockNumber: 0

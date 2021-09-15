@@ -16,11 +16,22 @@
   
 
    <div class="section  bg-white border-b-2 border-black">
-     <div class="autospacing w-container">
+     <div class="autospacing w-container flex">
         
-       <div class="w-row">
+       <div class="w-column w-1/2">
+          <div class="m-4 p-4 border-2 border-gray-500" style="min-height:50px"> 
+
+             <img v-bind:src="getImageURL()" width="100%"   />
+
+  
+
+          </div>
+       </div>
+
+         <div class="w-column w-1/2 m-4 p-4">
           <div> Show </div>
        </div>
+
      </div>
    </div>
 
@@ -52,10 +63,18 @@ export default {
   components: {Navbar, Footer},
   data() {
     return {
-      web3Plug: new Web3Plug() 
+      web3Plug: new Web3Plug() ,
+      nftContractAddress: null,
+      nftTokenId: null,
     }
   },
   mounted: function () {
+
+    this.nftContractAddress = this.$route.params.contractAddress
+    this.nftTokenId = this.$route.params.tokenId
+
+    console.log('meep',this.nftContractAddress,this.nftTokenId)
+
     this.web3Plug.reconnectWeb()
     this.web3Plug.getPlugEventEmitter().on('stateChanged', function(connectionState) {
         console.log('stateChanged',connectionState);
@@ -74,7 +93,18 @@ export default {
     
   }, 
   methods: {
-           
+              
+      getLinkUrl(){
+
+        //return `https://artblocks.io/token/${this.nftTokenId}.png` 
+        return `/collection/${this.nftContractAddress}/${this.nftTokenId}` 
+      },
+
+      getImageURL(){
+
+        return `https://media.artblocks.io/${this.nftTokenId}.png` 
+
+      }
   }
 }
 </script>
