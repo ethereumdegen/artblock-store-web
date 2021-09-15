@@ -5,7 +5,23 @@
      <div class="text-lg font-bold mb-8"> Create Sell Order </div> 
 
 
-             <div class="mb-4 ">
+              <div v-if="!hasApprovedAll()">
+
+
+                
+            <div class="my-8 ">
+
+              <div class="p-2 px-8 border-2 border-black inline cursor-pointer bg-green-400 rounded hover:bg-green-200" @click="approveAllNFT"> Approve All </div>
+            </div>
+
+
+              </div> 
+
+
+             <div v-if="hasApprovedAll()">
+
+
+                 <div class="mb-4 ">
               <label   class="block text-md font-medium font-bold text-gray-800  ">Buyout Price (ETH)</label>
 
               <div class="flex flex-row">
@@ -37,6 +53,11 @@
             </div>
 
 
+              </div>  
+
+            
+
+
 
   </div>
 </template>
@@ -53,6 +74,7 @@ export default {
   props: ['web3Plug','nftContractAddress',  'nftTokenId'],
   data() {
     return {
+      hasApprovedAll: false,
       
       formInputs: {
 
@@ -62,6 +84,7 @@ export default {
     }
   },
   created(){
+    //poll for has approved all 
 
   },
   methods: {
@@ -74,6 +97,10 @@ export default {
 
         getCurrencyAmountRaw(){
           return this.web3Plug.formattedAmountToRaw(this.currencyTokenAmount, 18)
+        },
+
+        async approveAllNFT(){
+          console.log('approve all ')
         },
 
         async createSellOrder(){
