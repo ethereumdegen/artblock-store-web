@@ -62,7 +62,9 @@
          />
 
           <span class="  " style="max-width:120px">
-          <a   v-bind:href="getEtherscanBaseURL()+'/address/'+web3Plug.getActiveAccountAddress()" class="text-gray-800  "   target="_blank">  {{web3Plug.getActiveAccountAddress()}} </a>
+
+            <router-link :to="'/account/'+web3Plug.getActiveAccountAddress()"> {{web3Plug.getActiveAccountAddress()}} </router-link>
+          
          </span>
          </div>
       </div>
