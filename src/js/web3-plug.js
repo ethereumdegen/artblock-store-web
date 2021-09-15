@@ -81,7 +81,7 @@ var web3Instance = null
 export default class Web3Plug {
 
   async reconnectWeb(){
-    if (window.ethereum) {
+    if (window.ethereum  ) {
 
      
 

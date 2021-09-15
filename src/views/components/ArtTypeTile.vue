@@ -1,5 +1,5 @@
 <template>
-  <a v-bind:href="getLinkUrl()" class=" cursor-pointer select-none inline-block m-4 relative" @mouseover="overlayShown=true" @mouseleave="overlayShown=false"   >
+  <router-link :to="getLinkUrl()" class=" cursor-pointer select-none inline-block m-4 relative"   >
 
     <img v-bind:src="imageURL" width="128" height="128" />
 
@@ -8,7 +8,7 @@
       <div class="absolute w-full text-center p-2" style="top:40%;">  {{type.label}} </div>
     </div>
       
-  </a>
+  </router-link>
 </template>
 
 

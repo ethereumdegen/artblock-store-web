@@ -142,8 +142,6 @@ import GenericTable from './components/GenericTable.vue';
  
 //import BuyTheFloorHelper from '../js/buythefloor-helper.js'
 
-import StarflaskAPIHelper from '../js/starflask-api-helper'
-
 import NftTile from './components/NftTile.vue'
 
 export default {
@@ -196,8 +194,6 @@ export default {
             this.connectedToWeb3 = this.web3Plug.connectedToWeb3()
             this.currentBlockNumber = await this.web3Plug.getBlockNumber()
 
-            await this.fetchOwnedTokens()
-
             //this.fetchBidsData()
             
           }.bind(this));
@@ -226,24 +222,6 @@ export default {
 
 
           },
-
-          async fetchOwnedTokens(){
-            
-            let results = await StarflaskAPIHelper.resolveStarflaskQuery( 'https://rinkeby.starflask.com/api/v1/apikey', {"requestType": "ERC721_balance_by_owner", "input":{"publicAddress":"0x99a848F6d8bb6D6Cd1A524B3C99a97e41e1E4b5A"}  }   )
-
-            console.log('results',results )
-
-            this.allOwnedNFTs = []
-
-
-            for(let result of results.output){
-              for(let tokenId of result.tokenIds){
-                this.allOwnedNFTs.push({nftContractAddress: result.contractAddress, nftTokenId: tokenId})
-              }
-            }
-
-          },
-
          /* async fetchBidsData(){
              var hostname = window.location.hostname; 
 

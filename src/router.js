@@ -6,6 +6,12 @@ import Home from './views/Home.vue'
 
 import Account from './views/Account.vue'
 import Dashboard from './views/Dashboard.vue'
+
+import CollectionsIndex from './views/CollectionsIndex.vue'
+
+import Collection from './views/Collection.vue'
+import NftToken from './views/NftToken.vue'
+
 /*
 import NewBid from './views/NewBid.vue'
 import Sell from './views/Sell.vue'
@@ -37,6 +43,24 @@ export default new Router({
       path: '/account/:address',
       name: 'account',
       component: Account
+    },
+
+    {
+      path: '/collections/',
+      name: 'collectionsIndex',
+      component: CollectionsIndex
+    },
+
+    {
+      path: '/collection/:address',
+      name: 'collection',
+      component: Collection
+    },
+
+    {
+      path: '/collection/:address/:nftTokenId',
+      name: 'nftToken',
+      component: NftToken
     },
 
     {
