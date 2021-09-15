@@ -1,0 +1,20 @@
+{
+    "development":{
+        "useHTTPS":false,
+        "chainId":5,
+        "web3provider":"https://eth-goerli.alchemyapi.io/v2/" 
+    },
+    "staging":{
+        "useHTTPS":true,
+        "chainId":5,
+        "web3provider":"https://eth-goerli.alchemyapi.io/v2/" 
+    },
+    "production":{
+        "useHTTPS":true,
+        "chainId":1,
+        "web3provider":"https://eth-mainnet.alchemyapi.io/v2/"
+    }
+    
+    
+   
+}

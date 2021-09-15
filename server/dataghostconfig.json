@@ -1,0 +1,48 @@
+{
+    "development":{
+        "wolfPackConfig":{
+            "contracts":[
+                {"address":"0xab89a7742cb10e7bce98540fd05c7d731839cf9f","startBlock":1316824, "type":"ERC20"},
+                {"address":"0xf5e7aa9fd045ce55c68f9a4f80a608496f152524","startBlock":4465740, "type":"ERC20"},
+                {"address":"0x1fd534630e4e720c1a71c596aeb896faaa979f19","startBlock":4531988, "type":"BuyTheFloor"}
+            
+            ],
+            "fineBlockGap":15,
+            "courseBlockGap":10000,
+            "suffix":"development" ,
+            "logging":true
+        },
+     
+        "chainId":5
+    },
+    "staging":{
+        "wolfPackConfig":{
+            "contracts":[{"address":"0xab89a7742cb10e7bce98540fd05c7d731839cf9f","startBlock":1316824, "type":"ERC20"},
+                {"address":"0xf5e7aa9fd045ce55c68f9a4f80a608496f152524","startBlock":4465740, "type":"ERC20"},
+                {"address":"0x1fd534630e4e720c1a71c596aeb896faaa979f19","startBlock":4531988, "type":"BuyTheFloor"}],
+            "fineBlockGap":15,
+            "courseBlockGap":10000,
+            "suffix":"staging" ,
+            "logging":true
+        },
+     
+        "chainId":5
+    },
+    "production":{
+
+        "wolfPackConfig":{
+            "contracts":[{"address":"0xb6ed7644c69416d67b522e20bc294a9a9b405b31","startBlock":5039000, "type":"ERC20"},
+                {"address":"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2","startBlock":4719568, "type":"ERC20"},
+                {"address":"0x392d7bda765d8bbe626abeb2127e6d6395eff44c","startBlock":12158466, "type":"BuyTheFloor"}
+            ],
+            "fineBlockGap":15,
+            "courseBlockGap":10000,
+            "suffix":"production" ,
+            "logging":true
+        }, 
+        "chainId":1
+    }
+    
+    
+   
+}
