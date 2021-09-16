@@ -32,7 +32,9 @@
 
           <div class="py-2">
 
-            <div> {{getAssetName() }} </div>
+            <div class="text-lg"> {{getAssetName() }} </div>
+
+            <a class="text-sm font-bold" v-bind:href="getCollectionExplorerURL()"> {{getCollectionName() }} </a>
 
             <div> Owned By {{getOwnerAddress()}} </div>
 
@@ -40,13 +42,13 @@
 
            <div class="py-2" v-if="ownedByLocalUser()">
 
-            <div class="p-2 border-2 border-black inline cursor-pointer rounded hover:bg-purple-200" @click="interactionMode='makeSellOrder'"> Sell This Item </div>
+            <div class="p-2 border-2 border-black inline cursor-pointer rounded hover:bg-purple-200 select-none" @click="interactionMode='makeSellOrder'"> Sell This Item </div>
   
           </div>
 
            <div class="py-2" v-if="!ownedByLocalUser()">
 
-            <div class="p-2 border-2 border-black inline cursor-pointer rounded hover:bg-purple-200"  @click="interactionMode='makeBuyOrder'"> Bid For This Item </div>
+            <div class="p-2 border-2 border-black inline cursor-pointer rounded hover:bg-purple-200  select-none"  @click="interactionMode='makeBuyOrder'"> Bid For This Item </div>
   
           </div>
 
@@ -63,8 +65,19 @@
         
        <div class="w-column w-1/2">
 
-       <!--  view pertinent offchain orders .. depending on who you are  --> 
-         
+           <div class="py-2" v-if="ownedByLocalUser()">
+
+            <OffersList 
+            v-bind:web3Plug="web3Plug"
+            v-bind:nftContractAddress="nftContractAddress"
+            v-bind:nftTokenId="nftTokenId"
+            
+            />
+
+
+          </div>
+
+
        </div>
 
          <div class="w-column w-1/2 m-4 p-4">
@@ -72,6 +85,21 @@
           <div class="py-2" v-if="interactionMode=='makeSellOrder'">
 
             <SellOrderForm 
+            v-bind:web3Plug="web3Plug"
+            v-bind:nftContractAddress="nftContractAddress"
+            v-bind:nftTokenId="nftTokenId"
+            
+            />
+
+           
+             
+
+          </div>
+
+
+           <div class="py-2" v-if="interactionMode=='makeBuyOrder'">
+ 
+            <BuyOrderForm 
             v-bind:web3Plug="web3Plug"
             v-bind:nftContractAddress="nftContractAddress"
             v-bind:nftTokenId="nftTokenId"
@@ -110,6 +138,9 @@ import Navbar from './components/Navbar.vue';
  
 import Footer from './components/Footer.vue';
 
+import OffersList from './components/OffersList.vue'
+
+import BuyOrderForm from './components/BuyOrderForm.vue'
 import SellOrderForm from './components/SellOrderForm.vue';
 
 import StarflaskAPIHelper from '../js/starflask-api-helper'
@@ -118,7 +149,7 @@ import StarflaskAPIHelper from '../js/starflask-api-helper'
 export default {
   name: 'Home',
   props: [],
-  components: {Navbar, Footer,SellOrderForm},
+  components: {Navbar, Footer, SellOrderForm, BuyOrderForm, OffersList},
   data() {
     return {
       web3Plug: new Web3Plug() ,
@@ -143,6 +174,10 @@ export default {
         this.activeNetworkId = connectionState.activeNetworkId
      
         await this.fetchTokenData() 
+
+        this.$forceUpdate();
+
+
       }.bind(this));
    this.web3Plug.getPlugEventEmitter().on('error', function(errormessage) {
         console.error('error',errormessage);
@@ -177,6 +212,18 @@ export default {
         //return 'unknown asset'
       },
 
+      getCollectionExplorerURL(){
+        return this.web3Plug.getExplorerLinkForAddress(this.nftContractAddress)
+      },
+
+      getCollectionName(){
+          //make this come from a giant config file that uses contract address and token id to look up 
+      
+        return 'Artblocks Curated'
+      },
+
+     
+
        getOwnerAddress(){ 
 
          if(this.ownedByLocalUser()) return 'You'
@@ -195,9 +242,6 @@ export default {
 
        async fetchTokenData(){
 
-                  console.log('meep',this.nftContractAddress,this.nftTokenId)
-
-
             let results = await StarflaskAPIHelper.resolveStarflaskQuery( 'https://rinkeby.starflask.com/api/v1/apikey', {"requestType": "ERC721_by_token", "input":{"contractAddress":this.nftContractAddress,"tokenId":  this.nftTokenId}  }    )
 
             console.log('results',results )
@@ -207,10 +251,9 @@ export default {
             if(output){
               this.tokenOwnerAddress = output.accountAddress
             }
-
             
 
-          },
+      },
 
 
 

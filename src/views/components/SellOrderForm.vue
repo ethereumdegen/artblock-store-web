@@ -5,20 +5,20 @@
      <div class="text-lg font-bold mb-8"> Create Sell Order </div> 
 
 
-              <div v-if="!hasApprovedAll()">
+              <div v-if="!hasApprovedAll">
 
 
-                
-            <div class="my-8 ">
+                    
+                <div class="my-8 ">
 
-              <div class="p-2 px-8 border-2 border-black inline cursor-pointer bg-green-400 rounded hover:bg-green-200" @click="approveAllNFT"> Approve All </div>
-            </div>
+                  <div class="p-2 px-8 border-2 border-black inline cursor-pointer bg-green-400 rounded hover:bg-green-200" @click="approveAllNFT"> Approve All </div>
+                </div>
 
 
               </div> 
 
 
-             <div v-if="hasApprovedAll()">
+             <div v-if="hasApprovedAll">
 
 
                  <div class="mb-4 ">
@@ -26,7 +26,7 @@
 
               <div class="flex flex-row">
                 <div class="w-1/2 px-4">
-                    <input type="number"   v-model="formInputs.currencyAmountFormatted"  class="text-gray-900 border-2 border-black font-bold px-4 text-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full py-4 pl-7 pr-12   border-gray-300 rounded-md" placeholder="0">
+                    <input type="number" v-on:blur="handleAmountBlur()"  v-model="formInputs.currencyAmountFormatted"  class="text-gray-900 border-2 border-black font-bold px-4 text-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full py-4 pl-7 pr-12   border-gray-300 rounded-md" placeholder="0">
                 </div>  
               </div>
            
@@ -38,7 +38,7 @@
 
               <div class="flex flex-row">
                   <div class="w-1/2 px-4">
-                      <input type="number" v-on:blur="handleExpiresBlur()" v-model="formInputs.expiresInBlocks"  class="text-gray-900 border-2 border-black font-bold px-4 text-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full py-4 pl-7 pr-12   border-gray-300 rounded-md" placeholder="10000">
+                      <input type="number"  v-model="formInputs.expiresInBlocks"  class="text-gray-900 border-2 border-black font-bold px-4 text-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full py-4 pl-7 pr-12   border-gray-300 rounded-md" placeholder="10000">
                   </div>
 
                    
@@ -86,6 +86,10 @@ export default {
   created(){
     //poll for has approved all 
 
+    this.checkForApproval()
+
+    setInterval(this.checkForApproval,8000);
+
   },
   methods: {
       
@@ -96,12 +100,58 @@ export default {
         },
 
         getCurrencyAmountRaw(){
-          return this.web3Plug.formattedAmountToRaw(this.currencyTokenAmount, 18)
+          return this.web3Plug.formattedAmountToRaw(this.formInputs.currencyAmountFormatted, 18)
+        },
+
+
+        async checkForApproval(){ 
+
+          let contractData = this.web3Plug.getContractDataForActiveNetwork() ;
+
+          let storeContractAddress = contractData['blockstore'].address
+  
+
+          let response = await this.web3Plug.getNFTAllowance(  this.nftContractAddress, storeContractAddress, this.web3Plug.getActiveAccountAddress() )
+
+           
+          if(response){
+            this.hasApprovedAll = true 
+          }
+
+          
+
+
         },
 
         async approveAllNFT(){
           console.log('approve all ')
+
+          let contractData = this.web3Plug.getContractDataForActiveNetwork() ;
+
+          let storeContractAddress = contractData['blockstore'].address
+  
+
+
+          let response = await this.web3Plug.getNFTContract(this.nftContractAddress).methods.setApprovalForAll( storeContractAddress, true ).send( {from: this.web3Plug.getActiveAccountAddress()}  )
+
+
         },
+
+        async handleAmountBlur(){
+         
+         
+
+
+        },
+
+
+        async getInputExpirationBlock(){
+
+          let currentBlock = await this.web3Plug.getBlockNumber()
+          return currentBlock + parseInt(this.formInputs.expiresInBlocks)
+        },
+
+
 
         async createSellOrder(){
 
@@ -121,7 +171,7 @@ export default {
             nftTokenId:this.nftTokenId,
             currencyTokenAddress:NATIVE_ETH,
             currencyTokenAmount:this.getCurrencyAmountRaw(),
-            expires:0,
+            expires: await this.getInputExpirationBlock(),
 
 
 
@@ -138,6 +188,9 @@ export default {
             
             
             )
+
+
+            //send this to the marketServer with axios post 
 
 
          

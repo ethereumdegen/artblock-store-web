@@ -168,6 +168,7 @@ export default class Web3Plug {
     this.getPlugEventEmitter().removeAllListeners();
   }
 
+ 
   getConnectionState(){
     return {
       activeAccountAddress: window.ethereum.selectedAddress,
@@ -222,6 +223,11 @@ export default class Web3Plug {
 
 
   getChainExplorerURL(networkId){ 
+
+    if(networkId == 4){
+      return 'https://rinkeby.etherscan.io'
+    }
+
     if(networkId == 5){
       return 'https://goerli.etherscan.io'
     }
@@ -320,6 +326,18 @@ export default class Web3Plug {
 
     return allowance;
   }
+
+  async getNFTAllowance(tokenAddress, spenderAddress, ownerAddress)
+  {
+    var web3 = new Web3(Web3.givenProvider);
+
+    var tokenContract = new web3.eth.Contract(nftContractABI, tokenAddress, {});
+ 
+    var allowance = await tokenContract.methods.isApprovedForAll(ownerAddress, spenderAddress).call();
+
+    return allowance;
+  }
+
 
 
   rawAmountToFormatted(amount,decimals)
