@@ -47,7 +47,7 @@
             </div>
 
 
-            <div class="my-8 ">
+            <div class="my-8 " v-if="formInputs.currencyAmountFormatted>0">
 
               <div class="p-2 px-8 border-2 border-black inline cursor-pointer bg-green-400 rounded hover:bg-green-200" @click="createSellOrder"> Sell </div>
             </div>

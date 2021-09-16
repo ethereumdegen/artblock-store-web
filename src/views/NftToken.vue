@@ -80,9 +80,9 @@
 
        </div>
 
-         <div class="w-column w-1/2 m-4 p-4">
+         <div class="w-column w-1/2 m-4 p-4 bg-gray-200 rounded" v-if="interactionMode=='makeSellOrder' || interactionMode=='makeBuyOrder'">
 
-          <div class="py-2" v-if="interactionMode=='makeSellOrder'">
+          <div class="py-2 " v-if="interactionMode=='makeSellOrder'">
 
             <SellOrderForm 
             v-bind:web3Plug="web3Plug"
