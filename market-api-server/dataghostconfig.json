@@ -1,0 +1,51 @@
+{
+    "development":{
+        "wolfPackConfig":{
+            "contracts":[
+          
+                {"address":"0x1fd534630e4e720c1a71c596aeb896faaa979f19","startBlock":4531988, "type":"BlockStore"}
+            
+            ],
+            "fineBlockGap":15,
+            "courseBlockGap":10000, 
+            "dbName":"wolfpack_development",
+            "logging":true
+        },
+     
+        "chainId":4
+    },
+    "staging":{
+        "wolfPackConfig":{
+            "contracts":[
+                {"address":"0x1fd534630e4e720c1a71c596aeb896faaa979f19","startBlock":4531988, "type":"BlockStore"}
+            
+
+            ],
+            "fineBlockGap":15,
+            "courseBlockGap":10000,
+            "suffix":"staging" ,
+            "logging":true
+        },
+     
+        "chainId":4
+    },
+    "production":{
+
+        "wolfPackConfig":{
+            "contracts":[
+                
+                {"address":" ","startBlock":4531988, "type":"BlockStore"}
+            
+
+            ],
+            "fineBlockGap":15,
+            "courseBlockGap":10000,
+            "suffix":"production" ,
+            "logging":true
+        }, 
+        "chainId":1
+    }
+    
+    
+   
+}

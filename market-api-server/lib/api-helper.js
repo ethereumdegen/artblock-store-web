@@ -11,7 +11,7 @@
     
     let envmode = process.env.NODE_ENV
 
-    let wolfpackConfigFile = FileHelper.readJSONFile('./server/dataghostconfig.json')
+    let wolfpackConfigFile = FileHelper.readJSONFile('./market-api-server/dataghostconfig.json')
     let wolfpackConfig = wolfpackConfigFile[envmode].wolfPackConfig
 
  

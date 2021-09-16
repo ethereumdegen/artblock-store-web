@@ -6,7 +6,7 @@ import BidPacketUtils from '../../src/js/bidpacket-utils.js'
 
 import FileHelper from './file-helper.js'
 
-const BTFContractABI = FileHelper.readJSONFile('./src/contracts/BuyTheFloorABI_2.json')
+const StoreContractABI = FileHelper.readJSONFile('./src/contracts/BlockStoreABI.json')
 const ERC20ContractABI = FileHelper.readJSONFile('./src/contracts/ERC20ABI.json')
 
 
