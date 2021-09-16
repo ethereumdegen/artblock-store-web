@@ -90,7 +90,7 @@ const offchainOrderPacketConfig = require('../../js/eip712-config.json')
 
 export default {
   name: 'SellOrderForm',
-  props: ['web3Plug','nftContractAddress',  'nftTokenId'],
+  props: ['web3Plug','nftContractAddress',  'nftTokenId','orderSubmittedCallback'],
   data() {
     return {
       hasApprovedAll: false,
@@ -179,8 +179,7 @@ export default {
           const NATIVE_ETH = "0x0000000000000000000000000000000000000010"
 
 
-          console.log('create Sell Order ')
-
+          
           let contractData = this.web3Plug.getContractDataForActiveNetwork() ;
 
           let storeContractAddress = contractData['blockstore'].address
@@ -228,7 +227,7 @@ export default {
 
             if(result.success){
               this.submittedSellOrderInputs = inputValues
-              
+              this.orderSubmittedCallback()
             }
          
 

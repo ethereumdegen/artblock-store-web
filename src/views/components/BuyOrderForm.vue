@@ -103,7 +103,7 @@ const offchainOrderPacketConfig = require('../../js/eip712-config.json')
 
 export default {
   name: 'SellOrderForm',
-  props: ['web3Plug','nftContractAddress',  'nftTokenId'],
+  props: ['web3Plug','nftContractAddress',  'nftTokenId','orderSubmittedCallback'],
   data() {
     return {
 
@@ -287,7 +287,7 @@ export default {
 
             if(result.success){
               this.submittedBidInputs = inputValues
-              
+             this.orderSubmittedCallback()
             }
 
          

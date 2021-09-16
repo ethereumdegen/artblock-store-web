@@ -48,7 +48,12 @@
 
            <div class="py-2" v-if="!ownedByLocalUser()">
 
-            <div class="p-2 border-2 border-black inline cursor-pointer rounded hover:bg-purple-200  select-none"  @click="interactionMode='makeBuyOrder'"> Bid For This Item </div>
+
+            <div v-if="bestSellOrder && getBuyoutPrice()" class='my-2'>
+               <div class="p-2 border-2 border-black inline-block cursor-pointer rounded bg-blue-500 text-white hover:bg-blue-400  select-none"  @click="buyoutNow"> Buyout For {{ getBuyoutPrice() }} </div>
+            </div>
+
+            <div class="p-2 my-2 border-2 border-black inline-block cursor-pointer rounded hover:bg-purple-200  select-none"  @click="interactionMode='makeBuyOrder'"> Bid For This Item </div>
   
           </div>
 
@@ -88,11 +93,9 @@
             v-bind:web3Plug="web3Plug"
             v-bind:nftContractAddress="nftContractAddress"
             v-bind:nftTokenId="nftTokenId"
-            
+            v-bind:orderSubmittedCallback="onOrderSubmitted"
             />
-
-           
-             
+ 
 
           </div>
 
@@ -103,6 +106,7 @@
             v-bind:web3Plug="web3Plug"
             v-bind:nftContractAddress="nftContractAddress"
             v-bind:nftTokenId="nftTokenId"
+            v-bind:orderSubmittedCallback="onOrderSubmitted"
             
             />
 
@@ -146,6 +150,7 @@ import SellOrderForm from './components/SellOrderForm.vue';
 import StarflaskAPIHelper from '../js/starflask-api-helper'
 
 const FrontendConfig = require('./config/FrontendConfig.json')
+const StoreContractABI = require( '../contracts/BlockStoreABI.json'  )
 
 export default {
   name: 'Home',
@@ -157,7 +162,9 @@ export default {
       nftContractAddress: null,
       nftTokenId: null,
       tokenOwnerAddress: null,
-      interactionMode: null 
+      interactionMode: null ,
+
+      bestSellOrder:null
 
     }
   },
@@ -175,6 +182,8 @@ export default {
         this.activeNetworkId = connectionState.activeNetworkId
      
         await this.fetchTokenData() 
+
+        await this.fetchOrdersForToken()
 
         this.$forceUpdate();
 
@@ -239,6 +248,62 @@ export default {
         return this.tokenOwnerAddress.toLowerCase() == this.activeAccountAddress.toLowerCase()
       },
 
+      async onOrderSubmitted(){
+
+        // await this.fetchTokenData() 
+
+        await this.fetchOrdersForToken()
+
+      },
+
+
+      getBuyoutPrice(){
+
+        if(this.bestSellOrder){
+          return  parseFloat(  this.web3Plug.rawAmountToFormatted( this.bestSellOrder.currencyTokenAmount ,18  )   )
+        }
+
+        return null
+      },
+
+      async buyoutNow(){
+        console.log( 'buyoutNow ')
+
+        let orderToFulfill = this.bestSellOrder
+
+        let contractData = this.web3Plug.getContractDataForActiveNetwork() ;
+
+        let storeContractAddress = contractData['blockstore'].address
+ 
+        let orderInputs = [
+          orderToFulfill.orderCreator, 
+          orderToFulfill.nftContractAddress,
+          orderToFulfill.nftTokenId,
+          orderToFulfill.currencyTokenAddress,
+          orderToFulfill.currencyTokenAmount,
+          orderToFulfill.expires,
+          orderToFulfill.signature
+        ]
+
+        let txEthValue = 0 
+
+        const NATIVE_ETH = "0x0000000000000000000000000000000000000010"
+
+        
+        if(orderToFulfill.currencyTokenAddress == NATIVE_ETH){
+          txEthValue = parseInt( orderToFulfill.currencyTokenAmount )
+        }
+        
+
+        let storeContract = this.web3Plug.getCustomContract( StoreContractABI, storeContractAddress )
+  
+        let response = await storeContract.methods.buyNFTUsingSellOrder(  ...orderInputs  )
+        .send({from: this.web3Plug.getActiveAccountAddress() , value:  txEthValue  })
+
+        console.log('response',response)
+
+
+      },
       
 
        async fetchTokenData(){
@@ -255,6 +320,55 @@ export default {
             
 
       },
+
+
+
+      async fetchOrdersForToken(){
+
+         let response = await StarflaskAPIHelper.resolveStarflaskQuery( FrontendConfig.marketApiRoot+'/api/v1/apikey', {"requestType": "get_orders_for_token", "input":{"contractAddress":this.nftContractAddress,"tokenId":  this.nftTokenId}  }    )
+
+      console.log('response',response)
+
+         let ordersForNFT = response.output.slice(0,100)
+
+          console.log('orders',ordersForNFT)
+
+
+         let buyOrders = ordersForNFT.filter(x => x.isSellOrder == false  )
+         let sellOrders = ordersForNFT.filter(x => x.isSellOrder == true  )
+
+          
+          this.bestSellOrder = await this.getBestSellOrder( sellOrders )
+
+
+      },
+
+
+
+      async getBestSellOrder(allSellOrders){
+
+
+        let currentBlockNumber = await this.web3Plug.getBlockNumber()
+        let unexpiredOrders = allSellOrders.filter(x => x.expires > currentBlockNumber)
+
+        
+
+        if(unexpiredOrders.length > 0 ){
+       
+           unexpiredOrders.sort( (a,b) => { return a.currencyTokenAmount - b.currencyTokenAmount  }   )
+
+           console.log('unexpiredOrders',unexpiredOrders  )
+
+          let bestPrice = unexpiredOrders[0]
+
+          
+           
+          return bestPrice
+        }
+
+        return null 
+
+      }
 
 
 
