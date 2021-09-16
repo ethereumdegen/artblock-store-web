@@ -7,20 +7,16 @@ Web frontend for NFT Exchange
 
 ### TODO
 
-
-    -click on your address in upper right corner should take you to your profile 
-
-
+    - Need to build the  orderPacket server and deploy it at https://api.onsecondary.com so I can make post requests to it like starflask API 
+     
     - front page should have tiles for each project (artblocks to start) 
 
-    - need a custom json config for tiles 
+    - need a custom json config for tiles [asset names and stuff ]
 
     --add the search back later 
     
 
-  
- -set up proxy in nginx , port 3000 for api (api.buythefloor.com) using HTTPs certs 
-
+   
 
 -run server with pm2 
  
