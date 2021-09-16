@@ -1,17 +1,26 @@
 {
     "development":{
         "useHTTPS":false,
-        "chainId":5,
+        "chainId":4,
+        "dbName":"blockstore_development",
+        "web3provider":"https://eth-goerli.alchemyapi.io/v2/" 
+    },
+    "test":{
+        "useHTTPS":false,
+        "chainId":4,
+        "dbName":"blockstore_test",
         "web3provider":"https://eth-goerli.alchemyapi.io/v2/" 
     },
     "staging":{
         "useHTTPS":true,
-        "chainId":5,
+        "chainId":4,
+        "dbName":"blockstore_staging",
         "web3provider":"https://eth-goerli.alchemyapi.io/v2/" 
     },
     "production":{
         "useHTTPS":true,
         "chainId":1,
+        "dbName":"blockstore_production",
         "web3provider":"https://eth-mainnet.alchemyapi.io/v2/"
     }
     

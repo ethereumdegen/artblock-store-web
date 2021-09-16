@@ -21,7 +21,8 @@
     "dataghost-staging": "NODE_ENV=staging node market-api-server/dataghost.js",
     "dataghost-dev": "NODE_ENV=development node market-api-server/dataghost.js",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test": "NODE_ENV=test mocha 'tests/**/*.js' --timeout 25000",
+    "test:frontend": "vue-cli-service test:unit"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
@@ -56,7 +57,7 @@
     "@vue/cli-service": "^3.5.0",
     "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.0.1",
-    "chai": "^4.2.0",
+    "chai": "^4.3.4",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "express": "^4.17.1",

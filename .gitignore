@@ -3,6 +3,7 @@ node_modules
 /dist
 
 /server/serverconfig.json
+/market-api-server/serverconfig.json
 
 # local env files
 .env.local

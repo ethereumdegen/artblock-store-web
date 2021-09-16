@@ -21,131 +21,97 @@
             let inputData = request.body 
             
 
-         
-            if(inputData.requestType == 'ERC721_balance_by_owner'){
+            //save a new buy or sell order to the server 
+            if(inputData.requestType == 'save_new_order'){
  
                 let inputParameters = inputData.input
- 
+   
+                let results = await APIHelper.saveNewOrder(inputParameters , mongoInterface)
 
-                let results = await APIHelper.findAllERC721ByOwner(inputParameters.publicAddress , wolfpackInterface)
-
+                if(!results.success){
+                    return results 
+                }
+                
                 //await ApplicationManager.logNewRequest(appId,inputData.requestType,inputParameters,results, mongoInterface)
 
                 return {success:true, input: inputParameters, output: results  }
             } 
 
 
-
-            if(inputData.requestType == 'ERC721_balance_by_contract'){
- 
+            if(inputData.requestType == 'get_orders_for_token'){
                 let inputParameters = inputData.input
- 
-
-                let results = await APIHelper.findAllERC721ByContract(inputParameters.contractAddress , wolfpackInterface)
-
-                //await ApplicationManager.logNewRequest(appId,inputData.requestType,inputParameters,results, mongoInterface)
+   
+                let results = await APIHelper.findAllOrdersByToken(inputParameters.contractAddress, inputParameters.tokenId , mongoInterface)
 
                 return {success:true, input: inputParameters, output: results  }
             }
 
-            if(inputData.requestType == 'ERC721_by_token'){
- 
+            if(inputData.requestType == 'get_orders_for_account'){
                 let inputParameters = inputData.input
-  
-                let results = await APIHelper.findAllERC721ByTokenId(inputParameters.contractAddress,inputParameters.tokenId , wolfpackInterface)
-
-                //await ApplicationManager.logNewRequest(appId,inputData.requestType,inputParameters,results, mongoInterface)
+   
+                let results = await APIHelper.findAllOrdersByAccount(inputParameters.accountAddress , mongoInterface)
 
                 return {success:true, input: inputParameters, output: results  }
+
             }
 
-
-            if(inputData.requestType == 'ERC20_burned_by_from'){
- 
-                let inputParameters = inputData.input
-
-                let from = inputParameters.from 
-
-                let results = await APIHelper.findBurnedERC20ByFrom(from, wolfpackInterface)
-
-                //await ApplicationManager.logNewRequest(appId,inputData.requestType,inputParameters,results, mongoInterface)
-
-                return {success:true, input: inputParameters, output: results  }
-            }
-        }
 
              
+        }
+
+        static validateOrderData(orderData){
+
+            if(typeof orderData.orderCreator == 'undefined') return false; 
+            if(typeof orderData.nftContractAddress == 'undefined') return false; 
+            if(typeof orderData.nftTokenId == 'undefined') return false; 
+            if(typeof orderData.currencyTokenAddress == 'undefined') return false; 
+            if(typeof orderData.currencyTokenAmount == 'undefined') return false; 
+            if(typeof orderData.expires == 'undefined') return false;  
+
+            return true
+        }
+             
+        static async saveNewOrder( inputParameters, mongoInterface ){
+            //validate the order 
+
+            let newOrderData = {
+                orderCreator: web3utils.toChecksumAddress(inputParameters.orderCreator),
+                isSellOrder: !!inputParameters.isSellOrder,
+                nftContractAddress: web3utils.toChecksumAddress(inputParameters.nftContractAddress),
+                nftTokenId: parseInt(inputParameters.nftTokenId),
+                currencyTokenAddress: web3utils.toChecksumAddress(inputParameters.currencyTokenAddress),
+                currencyTokenAmount: parseInt(inputParameters.currencyTokenAmount),
+                expires: parseInt(inputParameters.expires)
+            } 
+
+            let isValid = validateOrderData(newOrderData)
+
+            if(!isValid){
+                return { success:false, message:"invalid input parameters for order" }
+            }
+
+            let inserted = await mongoInterface.insertOne('market_orders',newOrderData)
             
-
-
-
-
-
-        static async findAllERC721ByOwner(publicAddress,mongoInterface){
-            publicAddress = web3utils.toChecksumAddress(publicAddress)
-            return await mongoInterface.findAll('erc721_balances',{accountAddress: publicAddress })
+            return {success:true,  insertion: inserted}
         }
 
+        // maybe add limits 
 
-
-        static async findAllERC721ByContract(contractAddress,mongoInterface){
+        static async findAllOrdersByToken(contractAddress, tokenId, mongoInterface){
             contractAddress = web3utils.toChecksumAddress(contractAddress)
-            return await mongoInterface.findAll('erc721_balances',{contractAddress: contractAddress })
+            tokenId = parseInt(tokenId)
+            return await mongoInterface.findAll('market_orders',{nftContractAddress: contractAddress, nftTokenId:tokenId  })
         }
 
-        static async findAllERC721ByTokenId(contractAddress,tokenId,mongoInterface){
-            contractAddress = web3utils.toChecksumAddress(contractAddress)
-            return await mongoInterface.findAll('erc721_balances',{contractAddress: contractAddress, tokenIds:tokenId })
-        }
-
-
-
-        static async findBurnedERC20ByFrom(publicAddress,mongoInterface){
-            publicAddress = web3utils.toChecksumAddress(publicAddress)
-            return await mongoInterface.findAll('erc20_burned',{from: publicAddress })
-        }
-
-        static async findBurnedERC20ByToken(tokenAddress,mongoInterface){
-            tokenAddress = web3utils.toChecksumAddress(tokenAddress)
-            return await mongoInterface.findAll('erc20_burned',{token: tokenAddress })
-        }
-
-        
-
-        //TEST THESE 
-        static async findERC20BalanceByAccount(accountAddress, mongoInterface){
-            accountAddress = web3utils.toChecksumAddress(accountAddress) 
-            return await mongoInterface.findAll('erc20_balances',{accountAddress: accountAddress  })
-        }
-
-        static async findERC20BalanceByToken(tokenAddress,mongoInterface){
-            tokenAddress = web3utils.toChecksumAddress(tokenAddress)
-            return await mongoInterface.findAll('erc20_balances',{contractAddress: tokenAddress })
+        static async findAllOrdersByAccount(accountAddress, mongoInterface){
+            accountAddress = web3utils.toChecksumAddress(accountAddress)
+            return await mongoInterface.findAll('market_orders',{accountAddress: publicAddress })
         }
 
 
-        //IMPLEMENT THESE 
-
-     /*   static async findERC20TransferredByToken(tokenAddress,mongoInterface){
-            tokenAddress = web3utils.toChecksumAddress(tokenAddress)
-            return await mongoInterface.findAll('erc20_transferred',{token: tokenAddress })
-        }*/
-
-        static async findERC20TransferredByFrom(from,mongoInterface){
-            from = web3utils.toChecksumAddress(from)
-            return await mongoInterface.findAll('erc20_transferred',{from: from })
-        }
-
-        static async findERC20TransferredByTo(to,mongoInterface){
-            to = web3utils.toChecksumAddress(to)
-            return await mongoInterface.findAll('erc20_transferred',{to: to })
-        }
-
-        static async findERC20TransferredByFromTo(from,to,mongoInterface){
-            from = web3utils.toChecksumAddress(from)
-            to = web3utils.toChecksumAddress(to)
-            return await mongoInterface.findAll('erc20_transferred',{from: from, to:to })
-        }
+ 
+  
+       
 
          
     }
