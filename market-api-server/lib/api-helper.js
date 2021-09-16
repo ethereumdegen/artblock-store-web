@@ -84,7 +84,7 @@
                 expires: parseInt(inputParameters.expires)
             } 
 
-            let isValid = ApiHelper.validateOrderData(newOrderData)
+            let isValid = APIHelper.validateOrderData(newOrderData)
 
             if(!isValid){
                 return { success:false, message:"invalid input parameters for order" }
