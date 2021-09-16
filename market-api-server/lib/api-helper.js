@@ -74,7 +74,7 @@
         static async saveNewOrder( inputParameters, mongoInterface ){
             //validate the order 
 
-            let isValid = APIHelper.validateOrderData(newOrderData)
+            let isValid = APIHelper.validateOrderData(inputParameters)
 
             if(!isValid){
                 return { success:false, message:"invalid input parameters for order" }
