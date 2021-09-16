@@ -279,13 +279,13 @@ export default class EIP712Utils {
          inputData.storeContractAddress,
          OrderPacketConfig,
          {
-          orderCreator: dataValues.orderCreator,
-          isSellOrder: dataValues.isSellOrder,
-          nftContractAddress: dataValues.nftContractAddress,
-          nftTokenId: dataValues.nftTokenId,
-          currencyTokenAddress: dataValues.currencyTokenAddress,
-          currencyTokenAmount: dataValues.currencyTokenAmount,
-          expires: dataValues.expires,
+          orderCreator: inputData.orderCreator,
+          isSellOrder: inputData.isSellOrder,
+          nftContractAddress: inputData.nftContractAddress,
+          nftTokenId: inputData.nftTokenId,
+          currencyTokenAddress: inputData.currencyTokenAddress,
+          currencyTokenAmount: inputData.currencyTokenAmount,
+          expires: inputData.expires,
 
          }    
     ) 
