@@ -81,12 +81,12 @@
 
             let recoveredSigner = EIP712Utils.recoverOrderSigner(  inputParameters   )
 
-            let signerIsValid = recoveredSigner.toLowerCase() == newOrderData.orderCreator.toLowerCase()
+            let signerIsValid = recoveredSigner.toLowerCase() == inputParameters.orderCreator.toLowerCase()
 
             if(!signerIsValid) return {success:false,  message: "Invalid signature"}
  
 
-            
+
             let isValid = APIHelper.validateOrderData(inputParameters)
 
             if(!isValid){
