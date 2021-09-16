@@ -20,7 +20,7 @@ import https from 'https'
 import APIHelper from './api-helper.js'
 
 import AccessHelper from './access-helper.js'
-//import ApplicationManager from './application-manager.js'
+ import ApplicationManager from './application-manager.js'
 
 export default class APIInterface  {
 
