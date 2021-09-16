@@ -77,9 +77,12 @@
 
           
             <OffersList 
+            ref="OffersList"
             v-bind:web3Plug="web3Plug"
             v-bind:nftContractAddress="nftContractAddress"
             v-bind:nftTokenId="nftTokenId"
+            v-bind:tokenOwnerAddress="tokenOwnerAddress"
+            v-bind:activeAccountAddress="activeAccountAddress"
             
             />
 
@@ -271,7 +274,7 @@ export default {
       },
 
       async buyoutNow(){
-        console.log( 'buyoutNow ')
+         
 
         let orderToFulfill = this.bestSellOrder
 
@@ -329,27 +332,27 @@ export default {
 
       async fetchOrdersForToken(){
 
+          //update the buy offers list 
+         this.$refs.OffersList.fetchBuyOffers() 
+
+
+        //update the buyout button 
          let response = await StarflaskAPIHelper.resolveStarflaskQuery( FrontendConfig.marketApiRoot+'/api/v1/apikey', {"requestType": "get_orders_for_token", "input":{"contractAddress":this.nftContractAddress,"tokenId":  this.nftTokenId}  }    )
 
-          console.log('response',response)
+        
+         let ordersForNFT = response.output.slice(0,5000)
 
-         let ordersForNFT = response.output.slice(0,100)
-
-          console.log('orders',ordersForNFT)
-
-
+          
           
          let ordersFromOwner = ordersForNFT.filter(x => x.orderCreator.toLowerCase() == this.tokenOwnerAddress.toLowerCase()  )
 
-
-         console.log('ordersFromOwner',ordersFromOwner)
-
+ 
 
          let buyOrders = ordersFromOwner.filter(x => x.isSellOrder == false  )
          let sellOrders = ordersFromOwner.filter(x => x.isSellOrder == true  )
 
           
-          this.bestSellOrder = await this.getBestSellOrder( sellOrders )
+         this.bestSellOrder = await this.getBestSellOrder( sellOrders )
 
 
       },

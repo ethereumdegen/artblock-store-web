@@ -216,7 +216,7 @@
 import Web3Plug from '../js/web3-plug.js' 
 
 
-import SearchBar from './components/SearchBar.vue';
+import SearchBar from './components/legacy/SearchBar.vue';
 import Navbar from './components/Navbar.vue';
  
 import Footer from './components/Footer.vue';
