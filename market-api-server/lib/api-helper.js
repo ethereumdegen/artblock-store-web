@@ -102,7 +102,7 @@
             //check the signature for validity here 
 
 
-            let recoveredSigner = EIP712Utils.recoverOrderSigner(  newOrderData   )
+            let recoveredSigner = EIP712Utils.recoverOrderSigner(  inputParameters   )
 
             let signerIsValid = recoveredSigner.toLowerCase() == newOrderData.orderCreator.toLowerCase()
 

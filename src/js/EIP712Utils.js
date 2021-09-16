@@ -12,7 +12,8 @@ import FileHelper from './file-helper.js'
 
 //"BidPacket(address bidderAddress,address nftContractAddress,address currencyTokenAddress,uint256 currencyTokenAmount,uint256 expires)"
   
-const OrderPacketConfig = {   "contractName":"BlockStore",
+const OrderPacketConfig = 
+{   "contractName":"BlockStore",
 "version":"1",
 "primaryType":"OffchainOrder",
 "entries":{
