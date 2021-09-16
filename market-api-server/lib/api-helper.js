@@ -31,7 +31,7 @@
                 if(!results.success){
                     return results 
                 }
-                
+
                 //await ApplicationManager.logNewRequest(appId,inputData.requestType,inputParameters,results, mongoInterface)
 
                 return {success:true, input: inputParameters, output: results  }
@@ -84,7 +84,7 @@
                 expires: parseInt(inputParameters.expires)
             } 
 
-            let isValid = validateOrderData(newOrderData)
+            let isValid = ApiHelper.validateOrderData(newOrderData)
 
             if(!isValid){
                 return { success:false, message:"invalid input parameters for order" }

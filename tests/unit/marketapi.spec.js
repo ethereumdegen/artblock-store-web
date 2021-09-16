@@ -43,7 +43,7 @@ describe("market server api",   function() {
 
     it("can query", async function() {
       
-      let result = await StarflaskApiHelper.resolveStarflaskQuery( 'http://localhost:3000/api/v1/appkey/', {request:'save_new_order', input:{}  }  )
+      let result = await StarflaskApiHelper.resolveStarflaskQuery( 'http://localhost:3000/api/v1/appkey/', {requestType:'save_new_order', input:{}  }  )
 
       console.log('result',result )
 
