@@ -74,6 +74,12 @@
         static async saveNewOrder( inputParameters, mongoInterface ){
             //validate the order 
 
+            let isValid = APIHelper.validateOrderData(newOrderData)
+
+            if(!isValid){
+                return { success:false, message:"invalid input parameters for order" }
+            }
+
             let newOrderData = {
                 orderCreator: web3utils.toChecksumAddress(inputParameters.orderCreator),
                 isSellOrder: !!inputParameters.isSellOrder,
@@ -84,11 +90,7 @@
                 expires: parseInt(inputParameters.expires)
             } 
 
-            let isValid = APIHelper.validateOrderData(newOrderData)
-
-            if(!isValid){
-                return { success:false, message:"invalid input parameters for order" }
-            }
+            
 
             let inserted = await mongoInterface.insertOne('market_orders',newOrderData)
             
