@@ -232,7 +232,16 @@ export default class EIP712Utils {
             chainId,  
             contractAddress,
             customConfig,
-            dataValues  
+             {
+              orderCreator: dataValues.orderCreator,
+              isSellOrder: dataValues.isSellOrder,
+              nftContractAddress: dataValues.nftContractAddress,
+              nftTokenId: dataValues.nftTokenId,
+              currencyTokenAddress: dataValues.currencyTokenAddress,
+              currencyTokenAmount: dataValues.currencyTokenAmount,
+              expires: dataValues.expires,
+
+             }  
        )
         
  
@@ -269,7 +278,16 @@ export default class EIP712Utils {
          inputData.chainId,  
          inputData.storeContractAddress,
          OrderPacketConfig,
-         inputData  
+         {
+          orderCreator: dataValues.orderCreator,
+          isSellOrder: dataValues.isSellOrder,
+          nftContractAddress: dataValues.nftContractAddress,
+          nftTokenId: dataValues.nftTokenId,
+          currencyTokenAddress: dataValues.currencyTokenAddress,
+          currencyTokenAmount: dataValues.currencyTokenAmount,
+          expires: dataValues.expires,
+
+         }    
     ) 
      
    
