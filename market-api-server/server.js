@@ -4,17 +4,20 @@
 import MongoInterface from './lib/mongo-interface.js'
 import WolfpackInterface from './lib/wolfpack-interface.js'
 
-import PacketReceiver from './lib/packet-receiver.js'
+
 
 import FileHelper from './lib/file-helper.js'
 
-import PacketCustodian from './lib/packet-custodian.js'
+import ApiInterface from './lib/api-interface.js'
+
+//import PacketReceiver from './lib/packet-receiver.js'
+//import PacketCustodian from './lib/packet-custodian.js'
 
 import Web3 from 'web3'
 
 let envmode = process.env.NODE_ENV
 
-let serverConfigFile = FileHelper.readJSONFile('./server/serverconfig.json')
+let serverConfigFile = FileHelper.readJSONFile('./market-api-server/serverconfig.json')
 let serverConfig = serverConfigFile[envmode]
 
   async function start(){
@@ -32,7 +35,7 @@ let serverConfig = serverConfigFile[envmode]
 
     //let packetReceiver = new PacketReceiver(web3, mongoInterface, wolfpackInterface, serverConfig)
     
-    let marketApiService = new MarketApiService(web3,mongoInterface )
+    let apiInterface = new ApiInterface(web3,mongoInterface,wolfpackInterface, serverConfig )
       
     
     console.log('web3 ready with provider ',serverConfig.web3provider )

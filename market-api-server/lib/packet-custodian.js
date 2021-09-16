@@ -21,7 +21,7 @@ import APIHelper from './api-helper.js'
 
 const GLOBAL_RATE_SCALE = 40
 
-const BTFContractABI = FileHelper.readJSONFile('./src/contracts/BuyTheFloorABI_2.json')
+const StoreContractABI = FileHelper.readJSONFile('./src/contracts/BlockStoreABI.json')
 const ERC20ContractABI = FileHelper.readJSONFile('./src/contracts/ERC20ABI.json')
 
 export default class PacketCustodian  {
