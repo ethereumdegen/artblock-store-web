@@ -12,7 +12,19 @@ import FileHelper from './file-helper.js'
 
 //"BidPacket(address bidderAddress,address nftContractAddress,address currencyTokenAddress,uint256 currencyTokenAmount,uint256 expires)"
   
-const OrderPacketConfig = FileHelper.readJSONFile('./src/js/eip712-config.json')
+const OrderPacketConfig = {   "contractName":"BlockStore",
+"version":"1",
+"primaryType":"OffchainOrder",
+"entries":{
+    "orderCreator":"address",
+    "isSellOrder":"bool",
+    "nftContractAddress":"address",
+    "nftTokenId":"uint256",
+    "currencyTokenAddress":"address",
+    "currencyTokenAmount":"uint256",
+    "expires":"uint256"
+ }
+}
 
 
 export default class EIP712Utils {
@@ -260,8 +272,7 @@ export default class EIP712Utils {
          inputData  
     ) 
      
-     console.log( 'signResult', signResult )  
-
+   
 
      let recoveredSigner = EIP712Utils.recoverPacketSigner(typedData, inputData.signature)
      console.log('recoveredSigner', recoveredSigner )

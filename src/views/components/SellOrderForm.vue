@@ -218,10 +218,12 @@ export default {
 
             console.log('final input',inputValues)
 
+            console.log('FrontendConfig',FrontendConfig)
+
 
             //send this to the marketServer with axios post 
             let result = await StarflaskAPIHelper.resolveStarflaskQuery(
-              FrontendConfig.MarketApiRoot+'/api/v1/key',
+              FrontendConfig.marketApiRoot+'/api/v1/key',
               {requestType:'save_new_order',input: inputValues})
 
             if(result.success){
