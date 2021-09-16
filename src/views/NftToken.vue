@@ -36,7 +36,12 @@
 
             <a class="text-sm font-bold" v-bind:href="getCollectionExplorerURL()"> {{getCollectionName() }} </a>
 
-            <div> Owned By {{getOwnerAddress()}} </div>
+            <div> 
+              Owned By 
+              
+              <router-link  :to="'/account/'+tokenOwnerAddress"  >  {{getOwnerAddress()}}   </router-link> 
+              
+            </div>
 
           </div>
 
@@ -50,7 +55,7 @@
 
 
             <div v-if="bestSellOrder && getBuyoutPrice()" class='my-2'>
-               <div class="p-2 border-2 border-black inline-block cursor-pointer rounded bg-blue-500 text-white hover:bg-blue-400  select-none"  @click="buyoutNow"> Buyout For {{ getBuyoutPrice() }} </div>
+               <div class="p-2 border-2 border-black inline-block cursor-pointer rounded bg-blue-500 text-white hover:bg-blue-400  select-none"  @click="buyoutNow"> Buyout For {{ getBuyoutPrice() }} ETH </div>
             </div>
 
             <div class="p-2 my-2 border-2 border-black inline-block cursor-pointer rounded hover:bg-purple-200  select-none"  @click="interactionMode='makeBuyOrder'"> Bid For This Item </div>
@@ -70,8 +75,7 @@
         
        <div class="w-column w-1/2">
 
-           <div class="py-2" v-if="ownedByLocalUser()">
-
+          
             <OffersList 
             v-bind:web3Plug="web3Plug"
             v-bind:nftContractAddress="nftContractAddress"
@@ -80,7 +84,7 @@
             />
 
 
-          </div>
+          
 
 
        </div>
@@ -310,7 +314,7 @@ export default {
 
             let results = await StarflaskAPIHelper.resolveStarflaskQuery( FrontendConfig.tokenDataApiRoot+'/api/v1/apikey', {"requestType": "ERC721_by_token", "input":{"contractAddress":this.nftContractAddress,"tokenId":  this.nftTokenId}  }    )
 
-            console.log('results',results )
+            console.log('fetchedTokenData',results )
 
             let output = results.output[0]
 
@@ -321,21 +325,28 @@ export default {
 
       },
 
-
+ 
 
       async fetchOrdersForToken(){
 
          let response = await StarflaskAPIHelper.resolveStarflaskQuery( FrontendConfig.marketApiRoot+'/api/v1/apikey', {"requestType": "get_orders_for_token", "input":{"contractAddress":this.nftContractAddress,"tokenId":  this.nftTokenId}  }    )
 
-      console.log('response',response)
+          console.log('response',response)
 
          let ordersForNFT = response.output.slice(0,100)
 
           console.log('orders',ordersForNFT)
 
 
-         let buyOrders = ordersForNFT.filter(x => x.isSellOrder == false  )
-         let sellOrders = ordersForNFT.filter(x => x.isSellOrder == true  )
+          
+         let ordersFromOwner = ordersForNFT.filter(x => x.orderCreator.toLowerCase() == this.tokenOwnerAddress.toLowerCase()  )
+
+
+         console.log('ordersFromOwner',ordersFromOwner)
+
+
+         let buyOrders = ordersFromOwner.filter(x => x.isSellOrder == false  )
+         let sellOrders = ordersFromOwner.filter(x => x.isSellOrder == true  )
 
           
           this.bestSellOrder = await this.getBestSellOrder( sellOrders )

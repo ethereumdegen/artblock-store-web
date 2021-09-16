@@ -56,7 +56,7 @@ let BlockStoreABI = FileHelper.readJSONFile('./src/contracts/BlockStoreABI.json'
 
 
     let wolfPack = new WolfPack()
-    await wolfPack.init( {suffix: wolfPackConfig.suffix} )
+    await wolfPack.init( wolfPackConfig )
     wolfPack.startIndexing( web3, wolfPackConfig )  
  
      
