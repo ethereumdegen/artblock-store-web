@@ -145,6 +145,7 @@ import SellOrderForm from './components/SellOrderForm.vue';
 
 import StarflaskAPIHelper from '../js/starflask-api-helper'
 
+const FrontendConfig = require('./config/FrontendConfig.json')
 
 export default {
   name: 'Home',
@@ -242,7 +243,7 @@ export default {
 
        async fetchTokenData(){
 
-            let results = await StarflaskAPIHelper.resolveStarflaskQuery( 'https://rinkeby.starflask.com/api/v1/apikey', {"requestType": "ERC721_by_token", "input":{"contractAddress":this.nftContractAddress,"tokenId":  this.nftTokenId}  }    )
+            let results = await StarflaskAPIHelper.resolveStarflaskQuery( FrontendConfig.tokenDataApiRoot+'/api/v1/apikey', {"requestType": "ERC721_by_token", "input":{"contractAddress":this.nftContractAddress,"tokenId":  this.nftTokenId}  }    )
 
             console.log('results',results )
 

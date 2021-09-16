@@ -47,13 +47,28 @@
             </div>
 
 
-            <div class="my-8 " v-if="formInputs.currencyAmountFormatted>0">
+
+
+          <div v-if="submittedSellOrderInputs">
+
+             <label> Sell order submitted successfully! </label>
+
+          </div>
+
+
+           <div v-if="!submittedSellOrderInputs">
+
+              <div class="my-8 " v-if="formInputs.currencyAmountFormatted>0">
 
               <div class="p-2 px-8 border-2 border-black inline cursor-pointer bg-green-400 rounded hover:bg-green-200" @click="createSellOrder"> Sell </div>
             </div>
 
 
-              </div>  
+          </div>
+
+            
+
+          </div>  
 
             
 
@@ -66,6 +81,10 @@
 <script>
 
 import EIP721Utils from '../../js/EIP712Utils'
+import StarflaskAPIHelper from '../../js/starflask-api-helper'
+
+
+const FrontendConfig = require('../config/FrontendConfig.json')
 
 const offchainOrderPacketConfig = require('../../js/eip712-config.json')
 
@@ -75,6 +94,8 @@ export default {
   data() {
     return {
       hasApprovedAll: false,
+
+      submittedSellOrderInputs: null,
       
       formInputs: {
 
@@ -177,22 +198,36 @@ export default {
 
           }
 
-          let result = await EIP721Utils.performOffchainSignForPacket(
-            this.web3Plug.getActiveNetId(),
-            storeContractAddress,
+          inputValues.chainId = this.web3Plug.getActiveNetId()
+          inputValues.storeContractAddress = storeContractAddress
+
+          let metamaskResponse = await EIP721Utils.performOffchainSignForPacket(
+            inputValues.chainId,
+            inputValues.storeContractAddress,
             offchainOrderPacketConfig,
             inputValues,
             this.web3Plug.getWeb3Instance(),
-            this.web3Plug.getActiveAccountAddress()
-            
-            
+            inputValues.orderCreator
             
             )
 
 
             //send this to the marketServer with axios post 
 
+            inputValues.signature = metamaskResponse.signature 
 
+            console.log('final input',inputValues)
+
+
+            //send this to the marketServer with axios post 
+            let result = await StarflaskAPIHelper.resolveStarflaskQuery(
+              FrontendConfig.MarketApiRoot+'/api/v1/key',
+              {requestType:'save_new_order',input: inputValues})
+
+            if(result.success){
+              this.submittedSellOrderInputs = inputValues
+              
+            }
          
 
 

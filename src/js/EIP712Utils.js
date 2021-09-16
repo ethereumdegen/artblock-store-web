@@ -10,7 +10,7 @@ import {bufferToHex, toBuffer, fromRpcSig, ecrecover, pubToAddress} from 'ethere
 
 //"BidPacket(address bidderAddress,address nftContractAddress,address currencyTokenAddress,uint256 currencyTokenAmount,uint256 expires)"
   
- 
+const OrderPacketConfig = require('./eip712-config.json')
 
 
 export default class EIP712Utils {
@@ -209,7 +209,7 @@ export default class EIP712Utils {
 
 
 
-      static async performOffchainSignForPacket(chainId, contractAddress,customConfig, dataValues, web3, from){
+     static async performOffchainSignForPacket(chainId, contractAddress,customConfig, dataValues, web3, from){
 
           
  
@@ -247,6 +247,28 @@ export default class EIP712Utils {
 
 
   }
+
+  static recoverOrderSigner(  inputData  ){
+ 
+ 
+    const typedData = EIP712Utils.getTypedDataFromParams( 
+         inputData.chainId,  
+         inputData.storeContractAddress,
+         OrderPacketConfig,
+         inputData  
+    ) 
+     
+     console.log( 'signResult', signResult )  
+
+
+     let recoveredSigner = EIP712Utils.recoverPacketSigner(typedData, inputData.signature)
+     console.log('recoveredSigner', recoveredSigner )
+ 
+
+     return recoveredSigner 
+
+
+}
 
 
 /*

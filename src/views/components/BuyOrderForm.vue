@@ -52,20 +52,34 @@
             </div>
 
 
-             <div class="my-8 " v-if="insufficientBalance">
+            <div v-if="submittedBidInputs">
 
-               <label> Insufficient funds. </label>
+                 <label> Bid submitted successfully! </label>
+
+
             </div>
 
+             <div v-if="!submittedBidInputs">
 
-            <div class="my-8 " v-if="!insufficientBalance">
+                <div class="my-8 " v-if="insufficientBalance">
 
-               <div v-if="needToApproveMore" class="p-2 px-8 border-2 border-black inline cursor-pointer bg-blue-400 rounded hover:bg-blue-200" @click="approveAllWeth"> Approve Weth </div>
-              <div v-if="!needToApproveMore && getCurrencyAmountRaw()>0" class="p-2 px-8 border-2 border-black inline cursor-pointer bg-green-400 rounded hover:bg-green-200" @click="createBuyOrder"> Place Bid </div>
+                    <label> Insufficient funds. </label>
+                  </div>
+
+
+                  <div class="my-8 " v-if="!insufficientBalance">
+
+                    <div v-if="needToApproveMore" class="p-2 px-8 border-2 border-black inline cursor-pointer bg-blue-400 rounded hover:bg-blue-200" @click="approveAllWeth"> Approve Weth </div>
+                    <div v-if="!needToApproveMore && getCurrencyAmountRaw()>0 && hasCalculatedApproval" class="p-2 px-8 border-2 border-black inline cursor-pointer bg-green-400 rounded hover:bg-green-200" @click="createBuyOrder"> Place Bid </div>
+                  </div>
+
+              
             </div>
 
+          
 
-              </div>  
+
+             </div>  
 
             
 
@@ -80,6 +94,10 @@
 const maxBidAmount =  "500000000000000000000000" //* Math.pow(10,18)
 
 import EIP721Utils from '../../js/EIP712Utils'
+import StarflaskAPIHelper from '../../js/starflask-api-helper'
+
+
+const FrontendConfig = require('../config/FrontendConfig.json')
 
 const offchainOrderPacketConfig = require('../../js/eip712-config.json')
 
@@ -91,6 +109,10 @@ export default {
 
       needToApproveMore: true,
       insufficientBalance: false,
+
+      hasCalculatedApproval: false,
+
+      submittedBidInputs:null,
 
       currentWethBalance: 0,
       
@@ -156,6 +178,12 @@ export default {
               console.log('need to approve more ')
           }else{
               this.needToApproveMore = false
+
+              if( parseInt(amountRaw)>0 ){
+                this.hasCalculatedApproval=true
+                console.log('has calculated approval',parseInt(amountRaw))
+              }
+            
           } 
 
 
@@ -234,21 +262,33 @@ export default {
 
           }
 
-          let result = await EIP721Utils.performOffchainSignForPacket(
-            this.web3Plug.getActiveNetId(),
-            storeContractAddress,
+            inputValues.chainId = this.web3Plug.getActiveNetId()
+            inputValues.storeContractAddress = storeContractAddress
+
+          let metamaskResponse = await EIP721Utils.performOffchainSignForPacket(
+            inputValues.chainId,
+            inputValues.storeContractAddress,
             offchainOrderPacketConfig,
             inputValues,
             this.web3Plug.getWeb3Instance(),
-            this.web3Plug.getActiveAccountAddress()
-            
-            
-            
+            inputValues.orderCreator
             )
+
+            
+            inputValues.signature = metamaskResponse.signature 
+
+            console.log('final input',inputValues)
 
 
             //send this to the marketServer with axios post 
+            let result = await StarflaskAPIHelper.resolveStarflaskQuery(
+              FrontendConfig.MarketApiRoot+'/api/v1/key',
+              {requestType:'save_new_order',input: inputValues})
 
+            if(result.success){
+              this.submittedBidInputs = inputValues
+              
+            }
 
          
 
