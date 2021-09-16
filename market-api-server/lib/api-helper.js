@@ -79,6 +79,14 @@
         static async saveNewOrder( inputParameters, mongoInterface ){
             //validate the order 
 
+            let recoveredSigner = EIP712Utils.recoverOrderSigner(  inputParameters   )
+
+            let signerIsValid = recoveredSigner.toLowerCase() == newOrderData.orderCreator.toLowerCase()
+
+            if(!signerIsValid) return {success:false,  message: "Invalid signature"}
+ 
+
+            
             let isValid = APIHelper.validateOrderData(inputParameters)
 
             if(!isValid){
@@ -102,14 +110,9 @@
             //check the signature for validity here 
 
 
-            let recoveredSigner = EIP712Utils.recoverOrderSigner(  inputParameters   )
+           
 
-            let signerIsValid = recoveredSigner.toLowerCase() == newOrderData.orderCreator.toLowerCase()
-
-            if(!signerIsValid) return {success:false,  message: "Invalid signature"}
- 
-
-            let existingOrder = await MongoInterface.findOne('market_orders', {signature: signature} )
+            let existingOrder = await mongoInterface.findOne('market_orders', {signature: signature} )
             if(existingOrder)  return {success:false,  message: "Order already saved"}
 
             let inserted = await mongoInterface.insertOne('market_orders',newOrderData)

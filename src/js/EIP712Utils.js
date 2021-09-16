@@ -276,7 +276,7 @@ export default class EIP712Utils {
  
  
     const typedData = EIP712Utils.getTypedDataFromParams( 
-         4,  
+           inputData.chainId,  
          inputData.storeContractAddress,
          OrderPacketConfig,
          {
