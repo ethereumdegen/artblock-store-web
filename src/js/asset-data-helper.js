@@ -186,6 +186,8 @@ export default class AssetDataHelper {
 
     static getCollectionNameForAsset( contractAddress, tokenId   )
     {
+        if(!contractAddress) return 'Unknown'
+        
         let assetLookupData = assetLookup[contractAddress.toLowerCase()]
 
         if(assetLookupData){
@@ -212,6 +214,8 @@ export default class AssetDataHelper {
 
   static getProjectNameForAsset( contractAddress, tokenId   )
   {
+
+    if(!contractAddress) return 'Unknown'
 
     let assetLookupData = assetLookup[contractAddress.toLowerCase()]
 

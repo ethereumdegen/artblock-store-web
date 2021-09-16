@@ -29,8 +29,29 @@
                  <div class=" ">  For Sale  </div>
 
 
-                 <div class="text-xs" v-if="sellOrders.length == 0"> Nothing found. </div>
+                 
+                 <div class="text-xs" v-if="validSellOrders.length == 0"> Nothing found. </div>
 
+
+                  <div class="border-2 border-gray-200 p-2 m-2 overflow-y-scroll"  v-if="validSellOrders.length > 0" style="max-height:500px">
+                    
+
+                        <div v-for="offer in validSellOrders" v-bind:key="offer.signature"> 
+                          
+                            <div class="  my-1     flex">
+                                <div class="truncate " style="max-width:50%">   {{ offer.orderCreator  }} </div> 
+                                    
+                                  <div class="flex-grow"> </div>
+                                 
+                                <router-link :to="'/collection/'+offer.nftContractAddress+'/'+offer.nftTokenId" class="px-1 bg-gray-200 cursor-pointer hover:bg-blue-400  text-sm rounded "  > Selling for {{ formatCurrencyAmount( offer.currencyTokenAmount ) }} ETH </router-link> 
+                          </div>
+                          
+                         </div>
+
+
+                  </div>
+
+                 
 
               
               
@@ -42,9 +63,27 @@
                  <div class=" ">  Bid Offers  </div>
 
 
-                 <div class="text-xs" v-if="buyOrders.length == 0"> Nothing found. </div>
+                 <div class="text-xs" v-if="validBuyOrders.length == 0"> Nothing found. </div>
+
+                 <div class="border-2 border-gray-200 p-2 m-2 overflow-y-scroll"  v-if="validBuyOrders.length > 0" style="max-height:500px">
+                     
+                    <div v-for="offer in validBuyOrders" v-bind:key="offer.signature"> 
+                      
+                      
+                      
+                      <div class=" my-1   flex">
+                                <div class="truncate " style="max-width:50%">   {{ offer.orderCreator  }} </div> 
+                                    
+                                  <div class="flex-grow"> </div>
+                                 
+                                <router-link  :to="'/collection/'+offer.nftContractAddress+'/'+offer.nftTokenId"  class="px-1 bg-gray-200 cursor-pointer  hover:bg-blue-400  text-sm rounded "  > Bid for {{ formatCurrencyAmount( offer.currencyTokenAmount ) }} ETH </router-link> 
+                          </div> </div>
 
 
+
+
+
+                  </div>
               
               
             </div>
@@ -124,8 +163,8 @@ export default {
       activeBidRowsArray:[],
       inactiveBidRowsArray:[],
 
-      sellOrders: [],
-      buyOrders: [],
+      validSellOrders: [],
+      validBuyOrders: [],
 
       projectId: null,
 
@@ -181,6 +220,12 @@ export default {
           this.web3Plug.reconnectWeb()
           },
 
+          formatCurrencyAmount(amountRaw){
+
+              return parseFloat( this.web3Plug.rawAmountToFormatted(amountRaw,18) )
+
+            },
+
 
           setActivePanel(panelId){
               if(panelId == this.activePanelId){
@@ -222,22 +267,25 @@ export default {
                 let response = await StarflaskAPIHelper.resolveStarflaskQuery( FrontendConfig.marketApiRoot+'/api/v1/apikey',
                 {"requestType": "get_orders_for_token_range", "input":{"contractAddress":contractAddress,"tokenIdStart":  tokenIdMin, "tokenIdEnd":  tokenIdMax}  }    )
 
-                  console.log(' fetchBuyOffers response',response)
+                 
 
                 if(!response.output) return 
 
                 let ordersForNFT = response.output.slice(0,5000)
 
-                //let ordersFromOwner = ordersForNFT.filter(x => x.orderCreator.toLowerCase() == this.tokenOwnerAddress.toLowerCase()  )
-
+                
                 let buyOrders = ordersForNFT.filter(x => x.isSellOrder == false  ) 
+                 let sellOrders = ordersForNFT.filter(x => x.isSellOrder == true  ) 
 
                 let currentBlockNumber = await this.web3Plug.getBlockNumber()
                 let unexpiredBuyOrders = buyOrders.filter(x => x.expires > currentBlockNumber)
+                let unexpiredSellOrders = sellOrders.filter(x => x.expires > currentBlockNumber)
 
-                  this.validBuyOffers = unexpiredBuyOrders.sort( (a,b) => {return b.currencyTokenAmount - a.currencyTokenAmount}  )
+                this.validBuyOrders = unexpiredBuyOrders.sort( (a,b) => {return b.currencyTokenAmount - a.currencyTokenAmount}  )
+                this.validSellOrders = unexpiredSellOrders.sort( (a,b) => {return a.currencyTokenAmount - b.currencyTokenAmount}  )
 
                   console.log('validBuyOffers',this.validBuyOffers)
+                  console.log('validSellOffers',this.validSellOffers)
 
           },
 

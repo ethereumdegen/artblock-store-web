@@ -7,6 +7,8 @@
  
          </div>
 
+         <div v-if="validBuyOffers.length==0"> None found. </div>
+
 
          <div> 
            <div v-for="offer of validBuyOffers" v-bind:key="offer.signature" class="px-2 border-2 border-gray-300" > 

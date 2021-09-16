@@ -7,15 +7,15 @@ Web frontend for NFT Exchange
 
 ### TODO
  
-     
-    - front page should have tiles for each project (artblocks to start) 
-
-    - need a custom json config for tiles [asset names and stuff ]
 
 
-    - need to know about the attributes and properties of each artblocks maybe in a huge offline JSON file 
+solve bn parsing everywhere   like cancel an order 
 
-    
+
+--must track which Sell Orders no longer match the owner of the work - so as to hide them ( run a bot on the api server -- delete such offchain orders )
+
+
+
 
     --add the search back later 
 

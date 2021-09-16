@@ -34,7 +34,7 @@
 
             <div class="text-lg"> {{getAssetName() }} </div>
 
-            <a class="text-sm font-bold" v-bind:href="getCollectionExplorerURL()"> {{getCollectionName() }} </a>
+            <a class="text-sm font-bold" v-bind:href="getProjectURL()"> {{getCollectionName() }} </a>
 
             <div> 
               Owned By 
@@ -47,8 +47,20 @@
 
            <div class="py-2" v-if="ownedByLocalUser()">
 
-            <div class="p-2 border-2 border-black inline cursor-pointer rounded hover:bg-purple-200 select-none" @click="interactionMode='makeSellOrder'"> Sell This Item </div>
-  
+                <div v-if="bestSellOrder " class='my-2'>
+                    <div class="p-2 border-2 border-black inline-block rounded bg-blue-500 text-white hover:bg-blue-400  select-none"  > For Sale: {{ getBuyoutPrice() }} ETH </div>
+          
+                  <div class="mx-2 p-1 border-2 border-black cursor-pointer inline-block rounded bg-red-500 text-white hover:bg-red-400  select-none" @click="cancelBuyout( bestSellOrder )"  > Cancel </div>
+
+                   <div class="p-2 border-2 border-black inline cursor-pointer rounded hover:bg-purple-200 select-none" @click="interactionMode='makeSellOrder'"> Lower Price </div>
+          
+                 </div>
+                 
+
+
+             <div v-if="!bestSellOrder " class='my-2'>
+                <div class="p-2 border-2 border-black inline cursor-pointer rounded hover:bg-purple-200 select-none" @click="interactionMode='makeSellOrder'"> Sell This Item </div>
+            </div>
           </div>
 
            <div class="py-2" v-if="!ownedByLocalUser()">
@@ -58,8 +70,15 @@
                <div class="p-2 border-2 border-black inline-block cursor-pointer rounded bg-blue-500 text-white hover:bg-blue-400  select-none"  @click="buyoutNow"> Buyout For {{ getBuyoutPrice() }} ETH </div>
             </div>
 
-            <div class="p-2 my-2 border-2 border-black inline-block cursor-pointer rounded hover:bg-purple-200  select-none"  @click="interactionMode='makeBuyOrder'"> Bid For This Item </div>
+
+
+
+            
+                <div class="p-2 my-2 border-2 border-black inline-block cursor-pointer rounded hover:bg-purple-200  select-none"  @click="interactionMode='makeBuyOrder'"> Bid For This Item </div>
   
+            
+
+           
           </div>
 
 
@@ -172,6 +191,8 @@ export default {
       tokenOwnerAddress: null,
       interactionMode: null ,
 
+      activeAccountAddress: null,
+
       bestSellOrder:null
 
     }
@@ -232,6 +253,22 @@ export default {
 
       getCollectionExplorerURL(){
         return this.web3Plug.getExplorerLinkForAddress(this.nftContractAddress)
+      },
+
+
+      getProjectURL(){  
+
+        let projectId = 0
+
+        if( this.nftTokenId >= 1000000 ) {
+
+          let projectId = parseInt(this.nftTokenId) / 1000000
+
+        }
+
+
+       
+        return '/project/'+projectId
       },
 
       getCollectionName(){
@@ -310,6 +347,35 @@ export default {
 
         console.log('response',response)
 
+
+      },
+
+
+      async cancelBuyout( orderToCancel ){
+        let contractData = this.web3Plug.getContractDataForActiveNetwork() ;
+
+        let storeContractAddress = contractData['blockstore'].address
+
+
+        //solve bn parsing 
+ 
+        let orderInputs = [
+          orderToCancel.orderCreator, 
+          orderToCancel.isSellOrder,
+          orderToCancel.nftContractAddress,
+          orderToCancel.nftTokenId,
+          orderToCancel.currencyTokenAddress,
+          orderToCancel.currencyTokenAmount,
+          orderToCancel.expires,
+          orderToCancel.signature
+        ]
+
+         let storeContract = this.web3Plug.getCustomContract( StoreContractABI, storeContractAddress )
+  
+        let response = await storeContract.methods.cancelOffchainOrder(  ...orderInputs  )
+        .send({from: this.web3Plug.getActiveAccountAddress()   })
+
+        console.log('response',response)
 
       },
       

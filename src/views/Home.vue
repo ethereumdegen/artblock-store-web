@@ -25,32 +25,42 @@
 
 
          <div class="column w-col w-col-6 mt-8 py-8">
-
-            <div class="">
-              
+          <div class="hidden">
+            <div class="">              
                <router-link to="/collection/artblocks-curated" class='text-gray-800 text-xl block'> Artblocks Curated </router-link>
-  
-            </div>
+              </div>
 
-            <div class="">
-              
+            <div class="">              
                <router-link to="/collection/artblocks-factory" class='text-gray-800 text-xl block'> Artblocks Factory </router-link>
-  
-            </div>
+              </div>
 
-            <div class="">
-              
+            <div class="">              
                <router-link to="/collection/artblocks-playground" class='text-gray-800 text-xl block'> Artblocks Playground </router-link>
-  
-            </div>
+              </div>
+           </div>
 
-               
+
+            <div >
+
+              <div> Top Projects </div>
+
+
+             <div class="" v-for="item in primaryListItems" v-bind:key="item.projectId">              
+               <router-link :to="'/project/'+item.projectId" class='text-gray-800 text-xl block'> {{ item.name}}   </router-link>
+              </div>
+             
+
            
-           <br> 
-      
-
+           </div>
+ 
 
          </div>
+
+
+
+
+
+
          <div class="column-2 w-col w-col-6  ">
            
               <FrontPageMedia />
@@ -244,6 +254,35 @@ export default {
       salesRowsArray: [], 
       nftContractOptionsList: [] ,
       filterByNFTContractAddress: null,
+
+      primaryListItems: [
+        {projectId: 0, name:'Chromie Squiggles'},
+        {projectId: 1, name:'Genesis'},
+        {projectId: 2, name:'Construction Token'},
+        {projectId: 7, name:'Elevated Deconstructions'},
+        {projectId: 8, name:'Singularity'},
+        {projectId: 9, name:'Ignition'},
+        {projectId: 10, name:'NimBuds'},
+        {projectId: 11, name:'HyperHash'},
+        {projectId: 12, name:'Unigrids'},
+        {projectId: 13, name:'Ringers'},
+        {projectId: 17, name:'Spectron'},
+        {projectId: 23, name:'Archetype'},
+        {projectId: 78, name:'Fidenza'},
+        {projectId: 89, name:'Dreams'},
+        {projectId: 95, name:'CryptoVenetian'},
+        {projectId: 112, name:'Alien Clock'},
+        {projectId: 119, name:'Ecumenopolis'},
+        {projectId: 120, name:'Endless Nameless'},
+        {projectId: 128, name:'Pigments'},
+        {projectId: 131, name:'Scribbled Boundaries'},
+        {projectId: 138, name:'Geometry Runners'},
+        {projectId: 143, name:'phase'},
+        {projectId: 159, name:'Fragments of an Infinite Field'},
+
+
+        
+      ]
 
       
     }

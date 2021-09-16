@@ -24,9 +24,9 @@
  
       "blockstore":{"address":"0xd3996ccb113b50e8238bda3aff31d59a163e971a"}, 
        
-      "artblocks":{"name":"ArtBlocks","address":""}, 
+      "artblocks":{"name":"ArtBlocks","address":"0x1f318502998772564ab84792edf6a1f66d5ff22d"}, 
  
-      "artblocks_legacy":{"name":"ArtBlocks","address":"0x388f486dbcbe05029ba7adf784459b580b427032"} 
+      "artblocks_legacy":{"name":"ArtBlocksLegacy","address":"0x388f486dbcbe05029ba7adf784459b580b427032"} 
  
     }
 
