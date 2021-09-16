@@ -46,6 +46,16 @@
                 return {success:true, input: inputParameters, output: results  }
             }
 
+            if(inputData.requestType == 'get_orders_for_token_range'){
+                let inputParameters = inputData.input
+
+                console.log('meep')
+   
+                let results = await APIHelper.findAllOrdersByTokenRange(inputParameters.contractAddress, inputParameters.tokenIdStart, inputParameters.tokenIdEnd , mongoInterface)
+
+                return {success:true, input: inputParameters, output: results  }
+            }
+
             if(inputData.requestType == 'get_orders_for_account'){
                 let inputParameters = inputData.input
    
@@ -130,6 +140,13 @@
             tokenId = parseInt(tokenId)
             return await mongoInterface.findAll('market_orders',{nftContractAddress: contractAddress, nftTokenId:tokenId  })
         }
+
+        static async findAllOrdersByTokenRange(contractAddress, tokenIdMin, tokenIdMax, mongoInterface){
+            contractAddress = web3utils.toChecksumAddress(contractAddress)
+            tokenIdMin = parseInt(tokenIdMin)
+            tokenIdMax = parseInt(tokenIdMax)
+            return await mongoInterface.findAll('market_orders',{nftContractAddress: contractAddress, nftTokenId:{$gte:tokenIdMin,$lte:tokenIdMax}  })
+        } 
 
         static async findAllOrdersByAccount(accountAddress, mongoInterface){
             accountAddress = web3utils.toChecksumAddress(accountAddress)

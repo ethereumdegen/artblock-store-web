@@ -6,14 +6,19 @@ Web frontend for NFT Exchange
  
 
 ### TODO
-
-    - Need to build the  orderPacket server and deploy it at https://api.onsecondary.com so I can make post requests to it like starflask API 
+ 
      
     - front page should have tiles for each project (artblocks to start) 
 
     - need a custom json config for tiles [asset names and stuff ]
 
+
+    - need to know about the attributes and properties of each artblocks maybe in a huge offline JSON file 
+
+    
+
     --add the search back later 
+
     
 
    

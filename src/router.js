@@ -7,7 +7,9 @@ import Home from './views/Home.vue'
 import Account from './views/Account.vue'
 import Dashboard from './views/Dashboard.vue'
 
-import CollectionsIndex from './views/CollectionsIndex.vue'
+import Project from './views/Project.vue'
+
+import ProjectsIndex from './views/ProjectsIndex.vue'
 
 import Collection from './views/Collection.vue'
 import NftToken from './views/NftToken.vue'
@@ -46,9 +48,15 @@ export default new Router({
     },
 
     {
-      path: '/collections/',
-      name: 'collectionsIndex',
-      component: CollectionsIndex
+      path: '/projects/',
+      name: 'projectsIndex',
+      component: ProjectsIndex
+    },
+
+    {
+      path: '/project/:projectId',
+      name: 'project',
+      component: Project
     },
 
     {

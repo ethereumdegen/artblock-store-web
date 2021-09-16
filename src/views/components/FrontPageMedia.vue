@@ -2,9 +2,8 @@
 <div class="pt-8 relative pb-2 mb-12" style="min-height:300px">
             
             
-             <img   src="@/assets/images/coins.svg" width="125" height="125" alt="">
- 
-            <div v-if="getTimeElapsed() >= 500" class="absolute  text-white text-2xl p-2" style="top:35%; left:30%; background: #222b" > Open Source NFT Marketplace </div>
+            
+            <div v-if="getTimeElapsed() >= 500" class="absolute  text-white text-2xl p-2" style="top:35%; left:30%; background: #222b" > Open Source Artblocks Marketplace </div>
 
 
  </div>

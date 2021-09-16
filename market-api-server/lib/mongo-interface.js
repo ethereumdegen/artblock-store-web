@@ -54,12 +54,20 @@ export default class MongoInterface  {
         if(config && config.apiMode == true) return //do not make indexes if api mode
 
         //set up database constraints to prevent data corruption
-        //await this.createCollectionUniqueIndexes()
+         await this.createCollectionUniqueIndexes()
     }
 
 
    async createCollectionUniqueIndexes()
     {
+
+      await this.createIndexOnCollection('market_orders', 'nftContractAddress')//speed up retrival
+      await this.createIndexOnCollection('market_orders', 'nftTokenId')
+      await this.createIndexOnCollection('market_orders', 'accountAddress')
+
+      await this.createUniqueIndexOnCollection('market_orders', 'signature')
+
+
 
        /* await this.createUniqueIndexOnCollection('items', 'spawnLockId')
         await this.createUniqueIndexOnCollection('celestialgrid', 'uuid')

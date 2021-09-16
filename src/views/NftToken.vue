@@ -155,6 +155,7 @@ import BuyOrderForm from './components/BuyOrderForm.vue'
 import SellOrderForm from './components/SellOrderForm.vue';
 
 import StarflaskAPIHelper from '../js/starflask-api-helper'
+import AssetDataHelper from '../js/asset-data-helper'
 
 const FrontendConfig = require('./config/FrontendConfig.json')
 const StoreContractABI = require( '../contracts/BlockStoreABI.json'  )
@@ -221,7 +222,7 @@ export default {
 
       getAssetName(){
         //make this come from a giant config file that uses contract address and token id to look up 
-        let typeName = 'Chromie Squiggle'
+        let typeName = AssetDataHelper.getProjectNameForAsset(this.nftContractAddress, this.nftTokenId)
         let tokenId = this.nftTokenId
 
         return typeName + ' ' + '#' + tokenId
@@ -236,7 +237,7 @@ export default {
       getCollectionName(){
           //make this come from a giant config file that uses contract address and token id to look up 
       
-        return 'Artblocks Curated'
+        return AssetDataHelper.getCollectionNameForAsset(this.nftContractAddress, this.nftTokenId)
       },
 
      
