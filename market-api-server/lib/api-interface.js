@@ -8,8 +8,7 @@ import path from 'path'
 
 import  history from 'connect-history-api-fallback'
 import  bodyParser from 'body-parser' 
-
-import PacketHelper from './packet-helper.js'
+ 
 import { Server } from "socket.io";
 
 import web3utils from 'web3-utils'

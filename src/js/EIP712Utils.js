@@ -7,10 +7,12 @@ import web3utils from 'web3-utils'
  
 import ethSigUtil from 'eth-sig-util'
 import {bufferToHex, toBuffer, fromRpcSig, ecrecover, pubToAddress} from 'ethereumjs-util'
+import FileHelper from './file-helper.js'
+ 
 
 //"BidPacket(address bidderAddress,address nftContractAddress,address currencyTokenAddress,uint256 currencyTokenAmount,uint256 expires)"
   
-const OrderPacketConfig = require('./eip712-config.json')
+const OrderPacketConfig = FileHelper.readJSONFile('./src/js/eip712-config.json')
 
 
 export default class EIP712Utils {
