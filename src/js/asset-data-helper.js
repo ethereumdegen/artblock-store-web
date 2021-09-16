@@ -5,7 +5,9 @@ const assetLookup = {
 
     "0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270":{name:"Artblocks",chainId:1},
     "0x059edd72cd353df5106d2b9cc5ab83a52287ac3a":{name:"Chromie Squiggle",chainId:1},
- 
+  
+    "0x1f318502998772564ab84792edf6a1f66d5ff22d":{name:"Artblocks",chainId:4},
+
     "0x388f486dbcbe05029ba7adf784459b580b427032":{name:"Chromie Squiggle",chainId:4}
 
 
@@ -219,6 +221,8 @@ export default class AssetDataHelper {
 
     let assetLookupData = assetLookup[contractAddress.toLowerCase()]
 
+    console.log('assetLookupData',assetLookupData)
+
     if(assetLookupData){
         let contractName = assetLookupData.name 
 
@@ -227,7 +231,12 @@ export default class AssetDataHelper {
         }
 
         if(contractName == "Artblocks" ){
-            let projectId = parseInt(tokenId) / 1000000   //one million 
+
+         
+            let projectId = parseInt( parseInt(tokenId) / 1000000 )  //one million 
+
+
+            console.log('meep', projectId)
 
             let projectName = abProjectLookup[projectId]
             

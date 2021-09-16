@@ -262,7 +262,7 @@ export default {
 
         if( this.nftTokenId >= 1000000 ) {
 
-          let projectId = parseInt(this.nftTokenId) / 1000000
+           projectId = parseInt(  parseInt(this.nftTokenId) / 1000000 ) 
 
         }
 

@@ -274,7 +274,7 @@ export default {
         {projectId: 112, name:'Alien Clock'},
         {projectId: 119, name:'Ecumenopolis'},
         {projectId: 120, name:'Endless Nameless'},
-        {projectId: 128, name:'Pigments'},
+        {projectId: 129, name:'Pigments'},
         {projectId: 131, name:'Scribbled Boundaries'},
         {projectId: 138, name:'Geometry Runners'},
         {projectId: 143, name:'phase'},
