@@ -227,7 +227,7 @@ export default {
 
            // let contractData = this.web3Plug.getContractDataForActiveNetwork() ;
   
-            let filterNFTcontracts = null
+            let filterNFTcontracts = FrontendConfig.filterNFTContracts
            
  
             let results = await StarflaskAPIHelper.resolveStarflaskQuery(  FrontendConfig.tokenDataApiRoot+ '/api/v1/apikey', {"requestType": "ERC721_balance_by_owner", "input":{"publicAddress": this.profileAccountAddress, "filterNFTcontracts": filterNFTcontracts }  }   )
