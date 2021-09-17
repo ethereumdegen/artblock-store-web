@@ -34,7 +34,7 @@ export default class IndexerBlockStore{
             let nftTokenId = parseInt( outputs['3'] )
             let currencyTokenAddress = web3.utils.toChecksumAddress( outputs['4'] )
             
-            let currencyTokenAmount = web3.utils.toChecksumAddress( outputs['5'] )
+            let currencyTokenAmount = parseInt( outputs['5'] )
              
             
             await IndexerBlockStore.nftSale( sellerAddress, buyerAddress, nftContractAddress, nftTokenId, currencyTokenAddress, currencyTokenAmount, mongoInterface )
