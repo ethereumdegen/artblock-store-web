@@ -49,14 +49,14 @@
 
 
 
-          <div v-if="submittedSellOrderInputs">
+          <div v-if="submittedSellOrderInputs && interactionMode!='lowerPrice'">
 
              <label> Sell order submitted successfully! </label>
 
           </div>
 
 
-           <div v-if="!submittedSellOrderInputs">
+           <div v-if="!submittedSellOrderInputs || interactionMode=='lowerPrice'">
 
               <div class="my-8 " v-if="formInputs.currencyAmountFormatted>0">
 
