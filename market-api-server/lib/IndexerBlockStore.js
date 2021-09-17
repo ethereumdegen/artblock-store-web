@@ -73,9 +73,13 @@ export default class IndexerBlockStore{
 
     let collectionName = 'nft_sale' 
 
-            
-    await mongoInterface.insertOne(collectionName, {  sellerAddress:sellerAddress, buyerAddress:buyerAddress, nftContractAddress:nftContractAddress, nftTokenId:nftTokenId, currencyTokenAddress:currencyTokenAddress, currencyTokenAmount:currencyTokenAmount, createdAt: Date.now() }   )
+     try{  
+        await mongoInterface.insertOne(collectionName, {  sellerAddress:sellerAddress, buyerAddress:buyerAddress, nftContractAddress:nftContractAddress, nftTokenId:nftTokenId, currencyTokenAddress:currencyTokenAddress, currencyTokenAmount:currencyTokenAmount, createdAt: Date.now() }   )
     
+     }catch(e){
+         console.error(e)
+     }
+   
 }
 
    
