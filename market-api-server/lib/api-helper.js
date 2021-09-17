@@ -150,7 +150,7 @@
                 nftContractAddress: web3utils.toChecksumAddress(inputParameters.nftContractAddress),
                 nftTokenId: parseInt(inputParameters.nftTokenId),
                 currencyTokenAddress: web3utils.toChecksumAddress(inputParameters.currencyTokenAddress),
-                currencyTokenAmount: parseInt(inputParameters.currencyTokenAmount),
+                currencyTokenAmount:  (inputParameters.currencyTokenAmount).toString(),
                 nonce: inputParameters.nonce.toString(),
                 expires: parseInt(inputParameters.expires),
                 signature: inputParameters.signature.toString()
