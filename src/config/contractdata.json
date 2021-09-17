@@ -22,7 +22,7 @@
       "weth":{"name":"wEth","address":"0xdf032bc4b9dc2782bb09352007d4c57b75160b15", "decimals":18, "minBidAmount":0.02},
 
  
-      "blockstore":{"address":"0xb61d4637B3E992B1063Bf54F7aaa4E40A7dB59af"}, 
+      "blockstore":{"address":"0x843f116649dda1222812ed6881175bd4206e1fad"}, 
        
       "artblocks":{"name":"ArtBlocks","address":"0x1f318502998772564ab84792edf6a1f66d5ff22d"}, 
  
