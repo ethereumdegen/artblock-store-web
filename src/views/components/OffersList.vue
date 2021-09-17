@@ -123,6 +123,8 @@ export default {
 
         //check for approval 
         let hasApproval = await this.checkForApproval()
+
+        console.log('has approval', hasApproval)
         if(!hasApproval)return; 
 
 
@@ -173,6 +175,7 @@ export default {
             this.hasApprovedAll = false 
           }
 
+        return this.hasApprovedAll
           
 
 
