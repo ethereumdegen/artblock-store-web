@@ -23,7 +23,7 @@
             ],
             "fineBlockGap":15,
             "courseBlockGap":10000,
-            "suffix":"staging" ,
+            "dbName":"wolfpack_staging",
             "logging":true
         },
      
@@ -40,7 +40,7 @@
             ],
             "fineBlockGap":15,
             "courseBlockGap":10000,
-            "suffix":"production" ,
+            "dbName":"wolfpack_production",
             "logging":true
         }, 
         "chainId":1
