@@ -25,6 +25,19 @@
 
          </div>
 
+
+         <div v-if="!hasApprovedAll && ownedByLocalUser()">
+
+
+                    
+                <div class="my-8 ">
+
+                  <div class="p-2 px-8 border-2 border-black inline cursor-pointer bg-green-400 rounded hover:bg-green-200" @click="approveAllNFT"> Approve All </div>
+                </div>
+
+
+              </div> 
+
      
      
      </div> 
@@ -48,7 +61,9 @@ export default {
   props: ['nftContractAddress',  'nftTokenId', 'web3Plug', 'tokenOwnerAddress', 'activeAccountAddress'],
   data() {
     return {
-      validBuyOffers: [] 
+      validBuyOffers: [] ,
+
+      hasApprovedAll: true,
       
     }
   },
@@ -62,7 +77,7 @@ export default {
 
     //await this.fetchBuyOffers() 
  
-
+    await this.checkForApproval()
 
   },
   methods: {
@@ -105,6 +120,13 @@ export default {
 
       async acceptOffer(orderToFulfill){
 
+
+        //check for approval 
+        let hasApproval = await this.checkForApproval()
+        if(!hasApproval)return; 
+
+
+
         let contractData = this.web3Plug.getContractDataForActiveNetwork() ;
 
         let storeContractAddress = contractData['blockstore'].address
@@ -130,7 +152,45 @@ export default {
 
 
 
-      }
+      },
+
+
+
+
+        async checkForApproval(){ 
+
+          let contractData = this.web3Plug.getContractDataForActiveNetwork() ;
+
+          let storeContractAddress = contractData['blockstore'].address
+  
+
+          let response = await this.web3Plug.getNFTAllowance(  this.nftContractAddress, storeContractAddress, this.web3Plug.getActiveAccountAddress() )
+
+           
+          if(response){
+            this.hasApprovedAll = true 
+          }else{
+            this.hasApprovedAll = false 
+          }
+
+          
+
+
+        },
+
+        async approveAllNFT(){
+          console.log('approve all ')
+
+          let contractData = this.web3Plug.getContractDataForActiveNetwork() ;
+
+          let storeContractAddress = contractData['blockstore'].address
+  
+
+
+          let response = await this.web3Plug.getNFTContract(this.nftContractAddress).methods.setApprovalForAll( storeContractAddress, true ).send( {from: this.web3Plug.getActiveAccountAddress()}  )
+
+
+        },
   }
 }
 </script>
