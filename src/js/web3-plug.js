@@ -342,7 +342,7 @@ export default class Web3Plug {
 
   rawAmountToFormatted(amount,decimals)
   {
-    return (amount * Math.pow(10,-1 * decimals)).toFixed(decimals);
+    return (amount / Math.pow(10,1 * decimals))//.toFixed(decimals);
   }
 
   formattedAmountToRaw(amountFormatted,decimals)

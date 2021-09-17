@@ -50,9 +50,14 @@
                 <div v-if="bestSellOrder " class='my-2'>
                     <div class="p-2 border-2 border-black inline-block rounded bg-blue-500 text-white hover:bg-blue-400  select-none"  > For Sale: {{ getBuyoutPrice() }} ETH </div>
           
-                  <div class="mx-2 p-1 border-2 border-black cursor-pointer inline-block rounded bg-red-500 text-white hover:bg-red-400  select-none" @click="cancelBuyout( bestSellOrder )"  > Cancel </div>
+                  
+                 </div>
 
-                   <div class="p-2 border-2 border-black inline cursor-pointer rounded hover:bg-purple-200 select-none" @click="interactionMode='lowerPrice'"> Lower Price </div>
+                  <div v-if="bestSellOrder " class='my-2'>
+                   
+                  <div class=" p-1 border-2 border-black cursor-pointer inline-block rounded bg-red-500 text-white hover:bg-red-400  select-none" @click="cancelBuyout( bestSellOrder )"  > Cancel </div>
+
+                   <div class="mx-2 p-2 border-2 border-black inline cursor-pointer rounded hover:bg-purple-200 select-none" @click="interactionMode='lowerPrice'"> Lower Price </div>
           
                  </div>
                  
@@ -311,7 +316,10 @@ export default {
       getBuyoutPrice(){
 
         if(this.bestSellOrder){
-          return  parseFloat(  this.web3Plug.rawAmountToFormatted( this.bestSellOrder.currencyTokenAmount ,18  )   )
+          let formattedAmount = this.web3Plug.rawAmountToFormatted( this.bestSellOrder.currencyTokenAmount ,18  ) 
+
+           
+          return  parseFloat(  formattedAmount )
         }
 
         return null
