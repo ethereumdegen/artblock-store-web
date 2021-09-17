@@ -233,9 +233,13 @@ export default {
           },
 
           async fetchOwnedTokens(){
-            
-            
-            let results = await StarflaskAPIHelper.resolveStarflaskQuery(  FrontendConfig.tokenDataApiRoot+ '/api/v1/apikey', {"requestType": "ERC721_balance_by_owner", "input":{"publicAddress": this.activeAccountAddress }  }   )
+
+           // let contractData = this.web3Plug.getContractDataForActiveNetwork() ;
+  
+            let filterNFTcontracts = FrontendConfig.filterNFTContracts
+           
+ 
+            let results = await StarflaskAPIHelper.resolveStarflaskQuery(  FrontendConfig.tokenDataApiRoot+ '/api/v1/apikey', {"requestType": "ERC721_balance_by_owner", "input":{"publicAddress": this.activeAccountAddress, "filterNFTcontracts": filterNFTcontracts }  }   )
 
             console.log('results',results )
 
