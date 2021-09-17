@@ -1,9 +1,9 @@
 <template>
-  <a v-bind:href="getLinkUrl()" class=" cursor-pointer select-none inline-block m-4 relative"   >
+  <router-link v-bind:to="getLinkUrl()" class=" cursor-pointer select-none inline-block m-4 relative"   >
 
     <img v-bind:src="getImageURL()" width="128" height="128" />
 
-  </a>
+  </router-link>
 </template>
 
 
