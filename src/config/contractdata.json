@@ -5,7 +5,7 @@
       "weth":{"name":"wEth","address":"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", "decimals":18, "minBidAmount":0.02},
       
  
-      "blockstore":{"address":" "}, 
+      "blockstore":{"address":"0x0419732028fa499200a0e36972e4c139e98d28e1"}, 
        
 
       "artblocks":{"name":"ArtBlocks","address":"0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270"} ,
