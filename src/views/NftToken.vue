@@ -176,6 +176,10 @@ import SellOrderForm from './components/SellOrderForm.vue';
 import StarflaskAPIHelper from '../js/starflask-api-helper'
 import AssetDataHelper from '../js/asset-data-helper'
 
+const web3utils = require('web3').utils
+
+const BN = web3utils.BN 
+
 const FrontendConfig = require('../config/FrontendConfig.json')
 const StoreContractABI = require( '../contracts/BlockStoreABI.json'  )
 
@@ -364,13 +368,16 @@ export default {
           orderToCancel.orderCreator, 
           orderToCancel.isSellOrder,
           orderToCancel.nftContractAddress,
-          orderToCancel.nftTokenId,
+          orderToCancel.nftTokenId.toString(),
           orderToCancel.currencyTokenAddress,
-          orderToCancel.currencyTokenAmount,
+          new BN(orderToCancel.currencyTokenAmount.toString()),
+          orderToCancel.nonce ,
           orderToCancel.expires,
-          orderToCancel.nonce,
+            
           orderToCancel.signature
         ]
+
+        console.log('orderInputs',orderInputs)
 
          let storeContract = this.web3Plug.getCustomContract( StoreContractABI, storeContractAddress )
   
