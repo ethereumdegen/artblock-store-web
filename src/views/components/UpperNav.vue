@@ -29,8 +29,8 @@
 
       <div slot-scope="{ hide, blurHandler }" class="origin-top-right absolute right-0 w-56 shadow-lg text-md bg-gray-200 text-gray-900">
 
-        <a
-        :href="row.url"
+        <router-link
+        :to="row.url"
         v-for="row in item.rows"
        
         :key="row.title"
@@ -39,7 +39,7 @@
         @blur="blurHandler"
         >
           {{ row.title }}
-        </a>
+        </router-link>
 
 
       </div>

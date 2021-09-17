@@ -88,8 +88,15 @@ export default {
         this.connectedToWeb3 = this.web3Plug.connectedToWeb3()
         this.currentBlockNumber = await this.web3Plug.getBlockNumber()
 
-         
-        this.$router.push({ name: 'account', params: { address: this.activeAccountAddress } })
+
+          if(this.activeAccountAddress){
+           // window.location.href = `/accounts/+${this.activeAccountAddress}`;
+            this.$router.push({ name: 'account', params: { address: this.activeAccountAddress } })
+        
+          }
+          
+
+        //this.$router.push({ name: 'account', params: { address: this.activeAccountAddress } })
          
 
 
