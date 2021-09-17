@@ -6,12 +6,14 @@ Web frontend for NFT Exchange
  
 
 ### TODO
+
+
+-- When an NFT sale happens, wipe out the sell orders  
+
+
  
 
-
-market server needs to watch for market events to know what gets burned 
-
--test for BN when making orders 
+ 
 
 
 --must track which Sell Orders no longer match the owner of the work - so as to hide them ( run a bot on the api server -- delete such offchain orders )
