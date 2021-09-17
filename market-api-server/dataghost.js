@@ -1,7 +1,4 @@
-
  
-import PacketReceiver from './lib/packet-receiver.js'
-
 import FileHelper from './lib/file-helper.js'
 
 import WolfPack from 'wolfpack'

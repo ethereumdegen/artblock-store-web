@@ -3,7 +3,7 @@
         "wolfPackConfig":{
             "contracts":[
           
-                {"address":"0x1fd534630e4e720c1a71c596aeb896faaa979f19","startBlock":4531988, "type":"BlockStore"}
+                {"address":"0x843f116649dda1222812ed6881175bd4206e1fad","startBlock":4531988, "type":"BlockStore"}
             
             ],
             "fineBlockGap":15,
@@ -17,7 +17,7 @@
     "staging":{
         "wolfPackConfig":{
             "contracts":[
-                {"address":"0x1fd534630e4e720c1a71c596aeb896faaa979f19","startBlock":4531988, "type":"BlockStore"}
+                {"address":"0x843f116649dda1222812ed6881175bd4206e1fad","startBlock":4531988, "type":"BlockStore"}
             
 
             ],
