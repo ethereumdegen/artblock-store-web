@@ -200,11 +200,13 @@
         static async findAllERC721ByOwner(publicAddress,filterNFTContracts, mongoInterface){
             publicAddress = web3utils.toChecksumAddress(publicAddress)
 
+            console.log('meeep',publicAddress , mongoInterface , await mongoInterface.findAll('erc721_balances',{accountAddress: publicAddress })
+
             if(filterNFTContracts && filterNFTContracts.length > 0){
                 filterNFTContracts = filterNFTContracts.map( x => web3utils.toChecksumAddress(x) )
                 return await mongoInterface.findAll('erc721_balances',{accountAddress: publicAddress, contractAddress: {$in:  filterNFTContracts  } })
             }
-            
+
             return await mongoInterface.findAll('erc721_balances',{accountAddress: publicAddress })
         }
 
