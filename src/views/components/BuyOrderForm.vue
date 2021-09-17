@@ -96,6 +96,8 @@ const maxBidAmount =  "500000000000000000000000" //* Math.pow(10,18)
 import EIP721Utils from '../../js/EIP712Utils'
 import StarflaskAPIHelper from '../../js/starflask-api-helper'
 
+const web3utils = require('web3').utils
+
 
 const FrontendConfig = require('../../config/FrontendConfig.json')
 
@@ -240,6 +242,11 @@ export default {
 
         },
 
+
+        generateRandomNonce(){
+          return web3utils.randomHex(32)
+        },
+
         async createBuyOrder(){
 
           
@@ -258,6 +265,7 @@ export default {
             nftTokenId:this.nftTokenId,
             currencyTokenAddress: wethAddress ,
             currencyTokenAmount:this.getCurrencyAmountRaw(),
+            nonce: this.generateRandomNonce(),
             expires:  await this.getInputExpirationBlock(),
 
           }
@@ -277,12 +285,7 @@ export default {
             
             inputValues.signature = metamaskResponse.signature 
 
-            console.log('final input',inputValues)
-
-            console.log('FrontendConfig',FrontendConfig)
-
-
-            //send this to the marketServer with axios post 
+             //send this to the marketServer with axios post 
             let result = await StarflaskAPIHelper.resolveStarflaskQuery(
               FrontendConfig.marketApiRoot+'/api/v1/key',
               {requestType:'save_new_order',input: inputValues})

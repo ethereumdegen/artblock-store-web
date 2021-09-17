@@ -327,6 +327,7 @@ export default {
           orderToFulfill.currencyTokenAddress,
           orderToFulfill.currencyTokenAmount,
           orderToFulfill.expires,
+          orderToFulfill.nonce,
           orderToFulfill.signature
         ]
 
@@ -367,6 +368,7 @@ export default {
           orderToCancel.currencyTokenAddress,
           orderToCancel.currencyTokenAmount,
           orderToCancel.expires,
+          orderToCancel.nonce,
           orderToCancel.signature
         ]
 

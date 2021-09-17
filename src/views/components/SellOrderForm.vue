@@ -172,6 +172,10 @@ export default {
           return currentBlock + parseInt(this.formInputs.expiresInBlocks)
         },
 
+        generateRandomNonce(){
+          return web3utils.randomHex(32)
+        },
+
 
 
         async createSellOrder(){
@@ -191,6 +195,7 @@ export default {
             nftTokenId:this.nftTokenId,
             currencyTokenAddress:NATIVE_ETH,
             currencyTokenAmount:this.getCurrencyAmountRaw(),
+             nonce: this.generateRandomNonce(),
             expires: await this.getInputExpirationBlock(),
 
 
@@ -215,10 +220,7 @@ export default {
 
             inputValues.signature = metamaskResponse.signature 
 
-            console.log('final input',inputValues)
-
-            console.log('FrontendConfig',FrontendConfig)
-
+           
 
             //send this to the marketServer with axios post 
             let result = await StarflaskAPIHelper.resolveStarflaskQuery(

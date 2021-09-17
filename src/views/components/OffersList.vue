@@ -110,6 +110,7 @@ export default {
           orderToFulfill.nftTokenId,
           orderToFulfill.currencyTokenAddress,
           orderToFulfill.currencyTokenAmount,
+          orderToFulfill.nonce,
           orderToFulfill.expires,
           orderToFulfill.signature
         ]
