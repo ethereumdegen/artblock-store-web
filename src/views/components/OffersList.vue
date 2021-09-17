@@ -2,7 +2,7 @@
  <div class="p-4 m-4 bg-gray-200 rounded">
      <!--  view pertinent offchain orders .. depending on who you are  --> 
        
-         <div class="my-8 ">
+         <div class="mb-8 ">
               <label  class="block text-md font-medium font-bold text-gray-800  ">Buy Offers</label>
  
          </div>
