@@ -31,6 +31,8 @@ let dataghostConfig = dataghostConfigFile[envmode]
     let mongoInterface = new MongoInterface( serverConfig.dbName ) 
 
 
+    console.log('boot wolfpack interface ', dataghostConfig.wolfPackConfig.dbName)
+
     let wolfpackInterface =  new MongoInterface( dataghostConfig.wolfPackConfig.dbName ) //new WolfpackInterface( dataghostConfig.wolfPackConfig.dbName )
 
 
