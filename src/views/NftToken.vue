@@ -339,7 +339,9 @@ export default {
           orderToFulfill.nftContractAddress,
           orderToFulfill.nftTokenId,
           orderToFulfill.currencyTokenAddress,
-          orderToFulfill.currencyTokenAmount,
+         
+           new BN( orderToFulfill.currencyTokenAmount.toString()),
+
           orderToFulfill.nonce,
           orderToFulfill.expires,
           orderToFulfill.signature
