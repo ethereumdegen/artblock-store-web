@@ -141,19 +141,19 @@
         static async findAllOrdersByToken(contractAddress, tokenId, mongoInterface){
             contractAddress = web3utils.toChecksumAddress(contractAddress)
             tokenId = parseInt(tokenId)
-            return await mongoInterface.findAll('market_orders',{nftContractAddress: contractAddress, nftTokenId:tokenId  })
+            return await mongoInterface.findAll('market_orders',{nftContractAddress: contractAddress, nftTokenId:tokenId, hasBeenBurned:false  })
         }
 
         static async findAllOrdersByTokenRange(contractAddress, tokenIdMin, tokenIdMax, mongoInterface){
             contractAddress = web3utils.toChecksumAddress(contractAddress)
             tokenIdMin = parseInt(tokenIdMin)
             tokenIdMax = parseInt(tokenIdMax)
-            return await mongoInterface.findAll('market_orders',{nftContractAddress: contractAddress, nftTokenId:{$gte:tokenIdMin,$lte:tokenIdMax}  })
+            return await mongoInterface.findAll('market_orders',{nftContractAddress: contractAddress, nftTokenId:{$gte:tokenIdMin,$lte:tokenIdMax}, hasBeenBurned:false  })
         } 
 
         static async findAllOrdersByAccount(accountAddress, mongoInterface){
             accountAddress = web3utils.toChecksumAddress(accountAddress)
-            return await mongoInterface.findAll('market_orders',{accountAddress: publicAddress })
+            return await mongoInterface.findAll('market_orders',{accountAddress: publicAddress, hasBeenBurned:false })
         }
 
 
