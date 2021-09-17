@@ -84,7 +84,7 @@ import EIP721Utils from '../../js/EIP712Utils'
 import StarflaskAPIHelper from '../../js/starflask-api-helper'
 
 
-const FrontendConfig = require('../config/FrontendConfig.json')
+const FrontendConfig = require('../../config/FrontendConfig.json')
 
 const offchainOrderPacketConfig = require('../../js/eip712-config.json')
 

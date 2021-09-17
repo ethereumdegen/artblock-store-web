@@ -146,7 +146,7 @@ import AssetDataHelper from '../js/asset-data-helper'
  
 //import BuyTheFloorHelper from '../js/buythefloor-helper.js'
 
-const FrontendConfig = require('./config/FrontendConfig.json')
+const FrontendConfig = require('../config/FrontendConfig.json')
  
 
 import NftTile from './components/NftTile.vue'

@@ -36,7 +36,7 @@ import StarflaskAPIHelper from '../../js/starflask-api-helper'
 
 const StoreContractABI = require( '../../contracts/BlockStoreABI.json'  )
 
-const FrontendConfig = require('../config/FrontendConfig.json')
+const FrontendConfig = require('../../config/FrontendConfig.json')
 
 export default {
   name: 'OffersList',

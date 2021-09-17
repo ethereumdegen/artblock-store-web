@@ -8,6 +8,7 @@
         "nftTokenId":"uint256",
         "currencyTokenAddress":"address",
         "currencyTokenAmount":"uint256",
+        "nonce":"bytes32",
         "expires":"uint256"
      }
 }

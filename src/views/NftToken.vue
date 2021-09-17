@@ -176,7 +176,7 @@ import SellOrderForm from './components/SellOrderForm.vue';
 import StarflaskAPIHelper from '../js/starflask-api-helper'
 import AssetDataHelper from '../js/asset-data-helper'
 
-const FrontendConfig = require('./config/FrontendConfig.json')
+const FrontendConfig = require('../config/FrontendConfig.json')
 const StoreContractABI = require( '../contracts/BlockStoreABI.json'  )
 
 export default {

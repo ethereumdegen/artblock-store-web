@@ -23,6 +23,7 @@ const OrderPacketConfig =
     "nftTokenId":"uint256",
     "currencyTokenAddress":"address",
     "currencyTokenAmount":"uint256",
+    "nonce":"bytes32",
     "expires":"uint256"
  }
 }
@@ -119,20 +120,7 @@ export default class EIP712Utils {
 
     }
 
-    //"BidPacket(address bidderAddress,address nftContractAddress,address currencyTokenAddress,uint256 currencyTokenAmount,uint256 expires)"
-    
-    /*
-      dataValues must be formatted as such:
-
-                bidderAddress: web3utils.toChecksumAddress(bidderAddress),
-                nftContractAddress: web3utils.toChecksumAddress(nftContractAddress),
-                currencyTokenAddress: web3utils.toChecksumAddress(currencyTokenAddress),
-                currencyTokenAmount: currencyTokenAmount,
-                requireProjectId: requireProjectId,
-                projectId: projectId,
-                expires:expires,
-    */
-
+   
 
     static getTypedDataFromParams( _chainId,_contractAddress, customConfig, dataValues)
     {
@@ -240,6 +228,7 @@ export default class EIP712Utils {
               nftTokenId: dataValues.nftTokenId,
               currencyTokenAddress: dataValues.currencyTokenAddress,
               currencyTokenAmount: dataValues.currencyTokenAmount,
+              nonce: dataValues.nonce,
               expires: dataValues.expires,
 
              }  
@@ -286,6 +275,7 @@ export default class EIP712Utils {
           nftTokenId: inputData.nftTokenId,
           currencyTokenAddress: inputData.currencyTokenAddress,
           currencyTokenAmount: inputData.currencyTokenAmount,
+          nonce: inputData.nonce,
           expires: inputData.expires,
 
          }    

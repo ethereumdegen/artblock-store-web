@@ -80,6 +80,8 @@
             if(typeof orderData.nftTokenId == 'undefined') return false; 
             if(typeof orderData.currencyTokenAddress == 'undefined') return false; 
             if(typeof orderData.currencyTokenAmount == 'undefined') return false; 
+            
+            if(typeof orderData.nonce == 'undefined') return false;  
             if(typeof orderData.expires == 'undefined') return false;  
             if(typeof orderData.signature == 'undefined') return false;  
 
@@ -110,6 +112,7 @@
                 nftTokenId: parseInt(inputParameters.nftTokenId),
                 currencyTokenAddress: web3utils.toChecksumAddress(inputParameters.currencyTokenAddress),
                 currencyTokenAmount: parseInt(inputParameters.currencyTokenAmount),
+                nonce: inputParameters.nonce.toString(),
                 expires: parseInt(inputParameters.expires),
                 signature: inputParameters.signature.toString()
             } 
