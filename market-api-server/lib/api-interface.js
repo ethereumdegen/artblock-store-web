@@ -244,10 +244,12 @@ export default class APIInterface  {
 
         let numberModified = updates.result.nModified
 
-         console.log('modified offchain orders ',numberModified)
-      
+         
 
         if(numberModified > 1){
+          console.log('modified offchain orders ',numberModified)
+      
+          
            //mark that it has been applied 
             await wolfpackInterface.updateOne( 'burned_nonces', { _id: nextUnappliedNonceBurning._id  } ,{ hasBeenApplied: true }   )
         }
