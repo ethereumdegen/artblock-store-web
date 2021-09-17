@@ -20,6 +20,9 @@
         
          <div  class=" " v-if="!connectedToWeb3">
               <NotConnectedToWeb3 />
+
+                  <div @click="web3Plug.connectWeb3( )" class="button inline-block bg-blue-500 hover:bg-blue-700 text-sm text-black font-bold my-2 py-1 px-2 rounded cursor-pointer">Login with Web3</div>
+
           </div>
 
        <div class="w-column"  v-if=" connectedToWeb3">
