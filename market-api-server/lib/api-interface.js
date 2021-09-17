@@ -41,8 +41,8 @@ export default class APIInterface  {
 
         if(serverConfig.useHTTPS == true ){
           var server = https.createServer({
-            cert: fs.readFileSync('/home/andy/deploy/cert/blockstore.com.pem'),
-            key: fs.readFileSync('/home/andy/deploy/cert/blockstore.com.key')
+            cert: fs.readFileSync('/home/andy/deploy/cert/onsecondary.com.pem'),
+            key: fs.readFileSync('/home/andy/deploy/cert/onsecondary.com.key')
           });
           console.log('--using https--')
          
