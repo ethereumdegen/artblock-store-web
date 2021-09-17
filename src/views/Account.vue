@@ -143,6 +143,10 @@ import GenericTable from './components/GenericTable.vue';
  
 //import BuyTheFloorHelper from '../js/buythefloor-helper.js'
 
+
+const FrontendConfig = require('../config/FrontendConfig.json')
+ 
+
 import StarflaskAPIHelper from '../js/starflask-api-helper'
 
 import NftTile from './components/NftTile.vue'
@@ -230,7 +234,8 @@ export default {
 
           async fetchOwnedTokens(){
             
-            let results = await StarflaskAPIHelper.resolveStarflaskQuery( 'https://rinkeby.starflask.com/api/v1/apikey', {"requestType": "ERC721_balance_by_owner", "input":{"publicAddress": this.activeAccountAddress }  }   )
+            
+            let results = await StarflaskAPIHelper.resolveStarflaskQuery(  FrontendConfig.tokenDataApiRoot+ '/api/v1/apikey', {"requestType": "ERC721_balance_by_owner", "input":{"publicAddress": this.activeAccountAddress }  }   )
 
             console.log('results',results )
 
