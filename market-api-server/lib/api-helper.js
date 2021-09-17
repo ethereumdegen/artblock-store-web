@@ -74,7 +74,7 @@
                 let inputParameters = inputData.input
  
 
-                let results = await APIHelper.findAllERC721ByOwner(inputParameters.publicAddress , wolfpackInterface)
+                let results = await APIHelper.findAllERC721ByOwner(inputParameters.publicAddress, inputParameters.filterNFTcontracts  , wolfpackInterface)
 
               
                 return {success:true, input: inputParameters, output: results  }
@@ -197,8 +197,14 @@
 
 
  
-        static async findAllERC721ByOwner(publicAddress,mongoInterface){
+        static async findAllERC721ByOwner(publicAddress,filterNFTContracts, mongoInterface){
             publicAddress = web3utils.toChecksumAddress(publicAddress)
+
+            if(filterNFTContracts && filterNFTContracts.length > 0){
+                filterNFTContracts = filterNFTContracts.map( x => web3utils.toChecksumAddress(x) )
+                return await mongoInterface.findAll('erc721_balances',{accountAddress: publicAddress, contractAddress: {$in:  filterNFTContracts  } })
+            }
+
             return await mongoInterface.findAll('erc721_balances',{accountAddress: publicAddress })
         }
 
