@@ -42,7 +42,7 @@ export default class IndexerBlockStore{
         }
         
         if(eventName == 'nonceburned'){
-            
+
             let creator = web3.utils.toChecksumAddress( outputs['0'] )
             let nonce = ( outputs['1'] )
             
@@ -60,10 +60,11 @@ export default class IndexerBlockStore{
 
        let collectionName = 'burned_nonces' 
 
+      
        let existing = await mongoInterface.findOne(collectionName, {orderCreator: orderCreator, nonce:nonce }  )
 
-       if(existing){            
-           await mongoInterface.insertOne(collectionName, {orderCreator: orderCreator, nonce:nonce }   )
+       if(!existing){            
+           await mongoInterface.insertOne(collectionName, {orderCreator: orderCreator, nonce:nonce, hasBeenApplied: false, createdAt: Date.now()  }   )
        }
    }
 
@@ -73,7 +74,7 @@ export default class IndexerBlockStore{
     let collectionName = 'nft_sale' 
 
             
-    await mongoInterface.insertOne(collectionName, {  sellerAddress:sellerAddress, buyerAddress:buyerAddress, nftContractAddress:nftContractAddress, nftTokenId:nftTokenId, currencyTokenAddress:currencyTokenAddress, currencyTokenAmount:currencyTokenAmount }   )
+    await mongoInterface.insertOne(collectionName, {  sellerAddress:sellerAddress, buyerAddress:buyerAddress, nftContractAddress:nftContractAddress, nftTokenId:nftTokenId, currencyTokenAddress:currencyTokenAddress, currencyTokenAmount:currencyTokenAmount, createdAt: Date.now() }   )
     
 }
 

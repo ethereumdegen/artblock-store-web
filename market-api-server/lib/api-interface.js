@@ -62,7 +62,7 @@ export default class APIInterface  {
 
 
 
-        setInterval( this.monitorOffchainOrders  , 4000)
+        setInterval( function() { this.monitorOffchainOrders(mongoInterface,wolfpackInterface) }.bind(this) , 4000)
     }
 
 
@@ -224,14 +224,41 @@ export default class APIInterface  {
     //mark offchain orders as being  Burned or not 
 
     //when we see that there is an event that came in that burned an offchain order BUT has not successfully marked all offchain orders in our DB ,
-    async monitorOffchainOrders( ){ 
+    async monitorOffchainOrders( mongoInterface, wolfpackInterface ){ 
+
+      //console.log('monit')
 
       //find the next 'burn' event which has not applied its burn to any records in our db 
+      let nextUnappliedNonceBurning = await wolfpackInterface.findOne( 'burned_nonces', { hasBeenApplied: false }   )
+
+      if(nextUnappliedNonceBurning){
+
+       // console.log('meep', nextUnappliedNonceBurning.nonce)
+
+        let burnedNonce = nextUnappliedNonceBurning.nonce 
 
 
+        let updates = await mongoInterface.updateMany('market_orders', { nonce:burnedNonce  }, {hasBeenBurned: true }  )
+
+       
+
+        let numberModified = updates.result.nModified
+
+       // console.log('numberModified',numberModified)
+      
+
+        if(numberModified > 1){
+           //mark that it has been applied 
+            await wolfpackInterface.updateOne( 'burned_nonces', { _id: nextUnappliedNonceBurning._id  } ,{ hasBeenApplied: true }   )
+        }
+
+        //await mongoInterface.updateMany('market_orders', { nonce:burnedNonce  }, {hasBeenBurned: false }  )
+
+       
+      }
       //make it apply its rcords to the stuff in our db  , and mark it that is has been applied 
 
-      
+
 
 
 

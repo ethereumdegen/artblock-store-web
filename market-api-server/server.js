@@ -31,7 +31,7 @@ let dataghostConfig = dataghostConfigFile[envmode]
     let mongoInterface = new MongoInterface( serverConfig.dbName ) 
 
 
-    let wolfpackInterface = new WolfpackInterface( dataghostConfig.wolfPackConfig.dbName )
+    let wolfpackInterface =  new MongoInterface( dataghostConfig.wolfPackConfig.dbName ) //new WolfpackInterface( dataghostConfig.wolfPackConfig.dbName )
 
 
     let web3 = new Web3( serverConfig.web3provider  )
