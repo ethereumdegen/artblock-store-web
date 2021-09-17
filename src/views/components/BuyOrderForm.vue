@@ -264,7 +264,7 @@ export default {
             nftContractAddress:this.nftContractAddress,
             nftTokenId:this.nftTokenId,
             currencyTokenAddress: wethAddress ,
-            currencyTokenAmount:this.getCurrencyAmountRaw(),
+            currencyTokenAmount:this.getCurrencyAmountRaw().toString(),
             nonce: this.generateRandomNonce(),
             expires:  await this.getInputExpirationBlock(),
 

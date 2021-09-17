@@ -207,7 +207,7 @@ export default {
             nftContractAddress:this.nftContractAddress,
             nftTokenId:this.nftTokenId,
             currencyTokenAddress:NATIVE_ETH,
-            currencyTokenAmount:this.getCurrencyAmountRaw(),
+            currencyTokenAmount: this.getCurrencyAmountRaw().toString(),
              nonce: nonce,
             expires: await this.getInputExpirationBlock(),
 
