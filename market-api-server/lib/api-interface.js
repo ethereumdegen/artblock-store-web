@@ -231,7 +231,7 @@ export default class APIInterface  {
       let STALE_TIME = 60*60*1000; 
 
       //find the next 'burn' event which has not applied its burn to any records in our db 
-      let nextUnappliedNonceBurning = await wolfpackInterface.findOne( 'burned_nonces', { hasBeenApplied: {$ne:true},  $or:[{lastUpdated: {$exists:false}}, { lastUpdated: { $le: Date.now()-STALE_TIME  }       ] }     }   )
+      let nextUnappliedNonceBurning = await wolfpackInterface.findOne( 'burned_nonces', { hasBeenApplied: {$ne:true},  $or:[{lastUpdated: {$exists:false}}, { lastUpdated: { $le: Date.now()-STALE_TIME  }   }]      }   )
 
       if(nextUnappliedNonceBurning){
 
