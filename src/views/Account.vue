@@ -18,12 +18,10 @@
    <div class="section  bg-white border-b-2 border-black">
      <div class="autospacing w-container">
         
-         <div  class=" " v-if="!connectedToWeb3">
-              <NotConnectedToWeb3 />
-          </div>
+       
 
 
-  <div class="w-column text-center mb-8"  v-if=" connectedToWeb3">
+  <div class="w-column text-center mb-8"   >
            <div class="text-md font-bold "> User Profile  </div>
 
           <div class="text-md  "> {{ this.profileAccountAddress }}  </div>
@@ -31,12 +29,7 @@
           <div  class=" "  >
  
 
-            <div  >
-
-            
-
-           </div>
-
+          
 
           </div>
 
@@ -46,7 +39,7 @@
 
 
 
-           <div class="w-column"  v-if=" connectedToWeb3">
+           <div class="w-column"   >
           <div class="text-lg font-bold"> Owned NFTs  </div>
           
          
