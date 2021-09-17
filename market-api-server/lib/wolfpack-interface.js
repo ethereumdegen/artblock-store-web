@@ -6,9 +6,9 @@ import MongoInterface from './mongo-interface.js'
 
     export default class WolfpackInterface  {
     
-        constructor( envmode ){
-            console.log('connect to ', 'wolfpack_'.concat(envmode)  )
-            this.mongoInterface = new MongoInterface( 'wolfpack_'.concat(envmode) ) 
+        constructor( dbName ){
+          
+            this.mongoInterface = new MongoInterface(  dbName  ) 
            
         }
 

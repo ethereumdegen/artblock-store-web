@@ -59,6 +59,10 @@ export default class APIInterface  {
         //this.startSocketServer(server)
 
         this.startWebServer(app, apiPort)
+
+
+
+        setInterval( this.monitorOffchainOrders  , 4000)
     }
 
 
@@ -97,7 +101,7 @@ export default class APIInterface  {
         console.log('sending reply:', response   )
 
         res.send(response)
-      }) 
+      })
 
 
 /*
@@ -217,6 +221,21 @@ export default class APIInterface  {
 
     }
 
+    //mark offchain orders as being  Burned or not 
+
+    //when we see that there is an event that came in that burned an offchain order BUT has not successfully marked all offchain orders in our DB ,
+    async monitorOffchainOrders( ){ 
+
+      //find the next 'burn' event which has not applied its burn to any records in our db 
+
+
+      //make it apply its rcords to the stuff in our db  , and mark it that is has been applied 
+
+      
+
+
+
+    }
  
     
 

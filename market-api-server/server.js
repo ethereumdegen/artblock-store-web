@@ -20,6 +20,9 @@ let envmode = process.env.NODE_ENV
 let serverConfigFile = FileHelper.readJSONFile('./market-api-server/serverconfig.json')
 let serverConfig = serverConfigFile[envmode]
 
+let dataghostConfigFile = FileHelper.readJSONFile('./market-api-server/dataghostconfig.json')
+let dataghostConfig = dataghostConfigFile[envmode]
+
   async function start(){
 
     console.log('server config: ',serverConfig)
@@ -28,7 +31,7 @@ let serverConfig = serverConfigFile[envmode]
     let mongoInterface = new MongoInterface( serverConfig.dbName ) 
 
 
-    let wolfpackInterface = new WolfpackInterface( envmode )
+    let wolfpackInterface = new WolfpackInterface( dataghostConfig.wolfPackConfig.dbName )
 
 
     let web3 = new Web3( serverConfig.web3provider  )

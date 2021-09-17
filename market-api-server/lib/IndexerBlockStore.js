@@ -37,7 +37,7 @@ export default class IndexerBlockStore{
             let currencyTokenAmount = web3.utils.toChecksumAddress( outputs['5'] )
              
             
-            await IndexerTellerOptions.nftSale( sellerAddress, buyerAddress, nftContractAddress, nftTokenId, currencyTokenAddress, currencyTokenAmount, mongoInterface )
+            await IndexerBlockStore.nftSale( sellerAddress, buyerAddress, nftContractAddress, nftTokenId, currencyTokenAddress, currencyTokenAmount, mongoInterface )
              
         }
         
@@ -47,7 +47,7 @@ export default class IndexerBlockStore{
             let nonce = ( outputs['1'] )
             
             
-            await IndexerTellerOptions.nonceBurned( creator, nonce, mongoInterface )
+            await IndexerBlockStore.nonceBurned( creator, nonce, mongoInterface )
              
         }
          
