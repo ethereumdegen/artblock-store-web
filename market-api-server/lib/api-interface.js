@@ -228,8 +228,10 @@ export default class APIInterface  {
 
       //console.log('monit')
 
+      let STALE_TIME = 60*60*1000; 
+
       //find the next 'burn' event which has not applied its burn to any records in our db 
-      let nextUnappliedNonceBurning = await wolfpackInterface.findOne( 'burned_nonces', { hasBeenApplied: {$ne:true} }   )
+      let nextUnappliedNonceBurning = await wolfpackInterface.findOne( 'burned_nonces', { hasBeenApplied: {$ne:true}, lastUpdated: { $or:[{lastUpdated: {$exists:false}}, { lastUpdated: { $le: Date.now()-STALE_TIME  }    }    ] }     }   )
 
       if(nextUnappliedNonceBurning){
 
@@ -249,9 +251,13 @@ export default class APIInterface  {
         if(numberModified > 1){
           console.log('modified offchain orders ',numberModified)
       
-          
+
            //mark that it has been applied 
-            await wolfpackInterface.updateOne( 'burned_nonces', { _id: nextUnappliedNonceBurning._id  } ,{ hasBeenApplied: true }   )
+            await wolfpackInterface.updateOne( 'burned_nonces', { _id: nextUnappliedNonceBurning._id  } ,{ hasBeenApplied: true, lastUpdated: Date.now() }   )
+        }else{
+
+          await wolfpackInterface.updateOne( 'burned_nonces', { _id: nextUnappliedNonceBurning._id  } ,{   lastUpdated: Date.now() }   )
+
         }
 
         //await mongoInterface.updateMany('market_orders', { nonce:burnedNonce  }, {hasBeenBurned: false }  )
