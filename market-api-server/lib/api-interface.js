@@ -226,16 +226,16 @@ export default class APIInterface  {
     //when we see that there is an event that came in that burned an offchain order BUT has not successfully marked all offchain orders in our DB ,
     async monitorOffchainOrders( mongoInterface, wolfpackInterface ){ 
 
-      //console.log('monit')
+       console.log('monit')
 
-      let STALE_TIME = 60*60*1000; 
+      let STALE_TIME = 5*60*1000; 
 
       //find the next 'burn' event which has not applied its burn to any records in our db 
       let nextUnappliedNonceBurning = await wolfpackInterface.findOne( 'burned_nonces', { hasBeenApplied: {$ne:true},  $or:[{lastUpdated: {$exists:false}}, { lastUpdated: { $lte: Date.now()-STALE_TIME  }   }]      }   )
 
       if(nextUnappliedNonceBurning){
 
-       // console.log('meep', nextUnappliedNonceBurning.nonce)
+        console.log('nextUnappliedNonceBurning', nextUnappliedNonceBurning )
 
         let burnedNonce = nextUnappliedNonceBurning.nonce 
 
