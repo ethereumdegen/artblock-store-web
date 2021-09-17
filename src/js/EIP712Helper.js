@@ -107,9 +107,11 @@ export default class EIP712Helper{
   
               web3.currentProvider.sendAsync(
                 {
-                    method: "eth_signTypedData_v3",
-                    params: [signer, data],
-                    from: signer
+                    jsonrpc: "2.0",
+                    id: 999999999999,
+                    method: "eth_signTypedData_v4",
+                    params: [signer, data]//,
+                   // from: signer
                 },
                 function(err, result) {
                     if (err) {

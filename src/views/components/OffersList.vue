@@ -38,6 +38,11 @@ const StoreContractABI = require( '../../contracts/BlockStoreABI.json'  )
 
 const FrontendConfig = require('../../config/FrontendConfig.json')
 
+
+const web3utils = require('web3').utils
+
+const BN = web3utils.BN 
+
 export default {
   name: 'OffersList',
   props: ['nftContractAddress',  'nftTokenId', 'web3Plug', 'tokenOwnerAddress', 'activeAccountAddress'],
@@ -109,7 +114,7 @@ export default {
           orderToFulfill.nftContractAddress,
           orderToFulfill.nftTokenId,
           orderToFulfill.currencyTokenAddress,
-          orderToFulfill.currencyTokenAmount,
+          new BN( orderToFulfill.currencyTokenAmount.toString()),
           orderToFulfill.nonce,
           orderToFulfill.expires,
           orderToFulfill.signature
