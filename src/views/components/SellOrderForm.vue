@@ -105,7 +105,7 @@ export default {
       formInputs: {
 
         currencyAmountFormatted: 0,
-        expiresInBlocks: 5000
+        expiresInBlocks: 50000
       }
     }
   },
