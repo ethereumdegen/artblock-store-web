@@ -4,6 +4,7 @@ node_modules
 
 /server/serverconfig.json
 /market-api-server/serverconfig.json
+/market-api-server/dataghostconfig.json
 
 # local env files
 .env.local
