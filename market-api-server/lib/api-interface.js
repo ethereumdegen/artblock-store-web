@@ -238,9 +238,11 @@ export default class APIInterface  {
         console.log('nextUnappliedNonceBurning', nextUnappliedNonceBurning )
 
         let burnedNonce = nextUnappliedNonceBurning.nonce 
+        let orderCreator = this.web3.utils.toChecksumAddress( nextUnappliedNonceBurning.orderCreator ) 
 
 
-        let updates = await mongoInterface.updateMany('market_orders', { nonce:burnedNonce  }, {hasBeenBurned: true }  )
+
+        let updates = await mongoInterface.updateMany('market_orders', { orderCreator:orderCreator , nonce:burnedNonce  }, {hasBeenBurned: true }  )
 
        
 
