@@ -229,7 +229,7 @@ export default class APIInterface  {
       //console.log('monit')
 
       //find the next 'burn' event which has not applied its burn to any records in our db 
-      let nextUnappliedNonceBurning = await wolfpackInterface.findOne( 'burned_nonces', { hasBeenApplied: false }   )
+      let nextUnappliedNonceBurning = await wolfpackInterface.findOne( 'burned_nonces', { hasBeenApplied: {$ne:true} }   )
 
       if(nextUnappliedNonceBurning){
 
