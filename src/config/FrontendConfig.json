@@ -1,6 +1,6 @@
 {
     "tokenDataApiRoot":"https://rinkeby.starflask.com",
-    "marketApiRoot":"http://api.onsecondary.com"
+    "marketApiRoot":"https://api.onsecondary.com"
 
 
 
