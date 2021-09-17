@@ -183,11 +183,7 @@ export default {
   mounted: function () {
     
      this.reconnectWeb3()
-
-      //this.populateContractAddressLookupTable()
-
-       
-     // this.fetchBidsData()
+ 
    
   }, 
    beforeDestroy(){
