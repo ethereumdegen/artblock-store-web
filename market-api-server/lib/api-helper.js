@@ -66,6 +66,45 @@
             }
 
 
+
+            // ERC 721 
+
+            if(inputData.requestType == 'ERC721_balance_by_owner'){
+ 
+                let inputParameters = inputData.input
+ 
+
+                let results = await APIHelper.findAllERC721ByOwner(inputParameters.publicAddress , wolfpackInterface)
+
+              
+                return {success:true, input: inputParameters, output: results  }
+            } 
+
+
+
+            if(inputData.requestType == 'ERC721_balance_by_contract'){
+ 
+                let inputParameters = inputData.input
+ 
+
+                let results = await APIHelper.findAllERC721ByContract(inputParameters.contractAddress , wolfpackInterface)
+
+              
+                return {success:true, input: inputParameters, output: results  }
+            }
+
+            if(inputData.requestType == 'ERC721_by_token'){
+ 
+                let inputParameters = inputData.input
+  
+                let results = await APIHelper.findAllERC721ByTokenId(inputParameters.contractAddress,inputParameters.tokenId , wolfpackInterface)
+
+                
+                return {success:true, input: inputParameters, output: results  }
+            }
+
+
+
              
         }
 
@@ -158,7 +197,22 @@
 
 
  
-  
+        static async findAllERC721ByOwner(publicAddress,mongoInterface){
+            publicAddress = web3utils.toChecksumAddress(publicAddress)
+            return await mongoInterface.findAll('erc721_balances',{accountAddress: publicAddress })
+        }
+
+
+
+        static async findAllERC721ByContract(contractAddress,mongoInterface){
+            contractAddress = web3utils.toChecksumAddress(contractAddress)
+            return await mongoInterface.findAll('erc721_balances',{contractAddress: contractAddress })
+        }
+
+        static async findAllERC721ByTokenId(contractAddress,tokenId,mongoInterface){
+            contractAddress = web3utils.toChecksumAddress(contractAddress)
+            return await mongoInterface.findAll('erc721_balances',{contractAddress: contractAddress, tokenIds:tokenId })
+        }
        
 
          
