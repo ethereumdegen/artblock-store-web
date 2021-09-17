@@ -26,7 +26,7 @@
   <div class="w-column text-center mb-8"  v-if=" connectedToWeb3">
            <div class="text-md font-bold "> User Profile  </div>
 
-          <div class="text-md  "> {{ this.activeAccountAddress }}  </div>
+          <div class="text-md  "> {{ this.profileAccountAddress }}  </div>
            
           <div  class=" "  >
  
@@ -163,6 +163,8 @@ export default {
       activeBidRowsArray:[],
       inactiveBidRowsArray:[],
 
+      profileAccountAddress: null,
+
       allOwnedNFTs:[ ],
        
       connectedToWeb3: false,
@@ -174,7 +176,7 @@ export default {
   },
   created(){
 
-  
+    this.profileAccountAddress = this.$route.params.address
 
   },
   
@@ -239,7 +241,7 @@ export default {
             let filterNFTcontracts = FrontendConfig.filterNFTContracts
            
  
-            let results = await StarflaskAPIHelper.resolveStarflaskQuery(  FrontendConfig.tokenDataApiRoot+ '/api/v1/apikey', {"requestType": "ERC721_balance_by_owner", "input":{"publicAddress": this.activeAccountAddress, "filterNFTcontracts": filterNFTcontracts }  }   )
+            let results = await StarflaskAPIHelper.resolveStarflaskQuery(  FrontendConfig.tokenDataApiRoot+ '/api/v1/apikey', {"requestType": "ERC721_balance_by_owner", "input":{"publicAddress": this.profileAccountAddress, "filterNFTcontracts": filterNFTcontracts }  }   )
 
             console.log('results',results )
 
