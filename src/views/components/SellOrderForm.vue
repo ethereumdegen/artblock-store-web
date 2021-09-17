@@ -38,7 +38,7 @@
 
               <div class="flex flex-row">
                   <div class="w-1/2 px-4">
-                      <input type="number"  v-model="formInputs.expiresInBlocks"  class="text-gray-900 border-2 border-black font-bold px-4 text-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full py-4 pl-7 pr-12   border-gray-300 rounded-md" placeholder="10000">
+                      <input type="number"  v-model="formInputs.expiresInBlocks"  class="text-gray-900 border-2 border-black font-bold px-4 text-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full py-4 pl-7 pr-12   border-gray-300 rounded-md" placeholder="5000">
                   </div>
 
                    
@@ -60,7 +60,9 @@
 
               <div class="my-8 " v-if="formInputs.currencyAmountFormatted>0">
 
-              <div class="p-2 px-8 border-2 border-black inline cursor-pointer bg-green-400 rounded hover:bg-green-200" @click="createSellOrder"> Sell </div>
+              <div v-if="interactionMode!='lowerPrice'" class="p-2 px-8 border-2 border-black inline cursor-pointer bg-green-400 rounded hover:bg-green-200" @click="createSellOrder"> Sell </div>
+
+               <div  v-if="interactionMode=='lowerPrice'" class="p-2 px-8 border-2 border-black inline cursor-pointer bg-green-400 rounded hover:bg-green-200" @click="createSellOrder"> Lower Price </div>
             </div>
 
 
@@ -93,7 +95,7 @@ const offchainOrderPacketConfig = require('../../js/eip712-config.json')
 
 export default {
   name: 'SellOrderForm',
-  props: ['web3Plug','nftContractAddress',  'nftTokenId','orderSubmittedCallback'],
+  props: ['web3Plug','nftContractAddress',  'nftTokenId', 'interactionMode' , 'bestSellOrder' , 'orderSubmittedCallback'],
   data() {
     return {
       hasApprovedAll: false,
@@ -103,7 +105,7 @@ export default {
       formInputs: {
 
         currencyAmountFormatted: 0,
-        expiresInBlocks: 100000
+        expiresInBlocks: 5000
       }
     }
   },
@@ -190,6 +192,14 @@ export default {
           let contractData = this.web3Plug.getContractDataForActiveNetwork() ;
 
           let storeContractAddress = contractData['blockstore'].address
+
+
+          let nonce = this.generateRandomNonce() 
+
+          if(this.interactionMode=='lowerPrice'){
+
+            nonce = this.bestSellOrder.nonce 
+          }
  
           let inputValues = {
             orderCreator:this.web3Plug.getActiveAccountAddress(),
@@ -198,7 +208,7 @@ export default {
             nftTokenId:this.nftTokenId,
             currencyTokenAddress:NATIVE_ETH,
             currencyTokenAmount:this.getCurrencyAmountRaw(),
-             nonce: this.generateRandomNonce(),
+             nonce: nonce,
             expires: await this.getInputExpirationBlock(),
 
 

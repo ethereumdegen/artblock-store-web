@@ -52,7 +52,7 @@
           
                   <div class="mx-2 p-1 border-2 border-black cursor-pointer inline-block rounded bg-red-500 text-white hover:bg-red-400  select-none" @click="cancelBuyout( bestSellOrder )"  > Cancel </div>
 
-                   <div class="p-2 border-2 border-black inline cursor-pointer rounded hover:bg-purple-200 select-none" @click="interactionMode='makeSellOrder'"> Lower Price </div>
+                   <div class="p-2 border-2 border-black inline cursor-pointer rounded hover:bg-purple-200 select-none" @click="interactionMode='lowerPrice'"> Lower Price </div>
           
                  </div>
                  
@@ -111,15 +111,17 @@
 
        </div>
 
-         <div class="w-column w-1/2 m-4 p-4 bg-gray-200 rounded" v-if="interactionMode=='makeSellOrder' || interactionMode=='makeBuyOrder'">
+         <div class="w-column w-1/2 m-4 p-4 bg-gray-200 rounded" v-if="interactionMode=='makeSellOrder' || interactionMode=='lowerPrice' || interactionMode=='makeBuyOrder'">
 
-          <div class="py-2 " v-if="interactionMode=='makeSellOrder'">
+          <div class="py-2 " v-if="interactionMode=='makeSellOrder' || interactionMode=='lowerPrice'">
 
             <SellOrderForm 
             v-bind:web3Plug="web3Plug"
             v-bind:nftContractAddress="nftContractAddress"
             v-bind:nftTokenId="nftTokenId"
             v-bind:orderSubmittedCallback="onOrderSubmitted"
+            v-bind:interactionMode="interactionMode"
+            v-bind:bestSellOrder="bestSellOrder"
             />
  
 
@@ -330,8 +332,8 @@ export default {
           orderToFulfill.nftTokenId,
           orderToFulfill.currencyTokenAddress,
           orderToFulfill.currencyTokenAmount,
-          orderToFulfill.expires,
           orderToFulfill.nonce,
+          orderToFulfill.expires,
           orderToFulfill.signature
         ]
 
